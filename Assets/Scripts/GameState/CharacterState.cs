@@ -5,6 +5,7 @@ using UnityEngine;
 public class CharacterState
 {
     // Start is called before the first frame update
+    public string id;
     public int hp;
     public int maxhp;
     public int attack;

@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class Ability
 {
     string name;
-    bool appliable(Character character, List<Character> targets) {
+    public virtual bool appliable(CharacterState character, List<CharacterState> targets) {
         return false;
     }
 
@@ -14,7 +14,7 @@ public abstract class Ability
     
     }
 
-   public RoundState Use(Character character, List<Character> targets, RoundState currentState) {
+    public virtual RoundState Use(CharacterState character, List<CharacterState> targets,int currentTarget, RoundState currentState) {
 
 
         return currentState;

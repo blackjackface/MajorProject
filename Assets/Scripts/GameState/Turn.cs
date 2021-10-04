@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class Turn
 {
-    public Character character;
+    public CharacterState character;
     
     public Ability ability;
-    public List<Character> targets;
+    public List<CharacterState> targets;
     // Start is called before the first frame update
-
 }
