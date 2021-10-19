@@ -14,8 +14,8 @@ public class ControlEffectManager : MonoBehaviour
            
     }
 
-    public void selectTarget() { 
-    
+    public void SelectTarget() { 
+        
     
     
     } 

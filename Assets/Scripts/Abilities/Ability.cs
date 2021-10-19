@@ -2,23 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Ability
+public abstract class Ability : MonoBehaviour
 {
-    string name;
-    public virtual bool appliable(CharacterState character, List<CharacterState> targets) {
-        return false;
+
+    //this is a regular monoTargetSkill
+   public string abilityName;
+    public virtual void UseAbility(Character user,Character target)
+    {
+        
+
     }
-
-    public Ability(){
-    
-    
-    }
-
-    public virtual RoundState Use(CharacterState character, List<CharacterState> targets,int currentTarget, RoundState currentState) {
-
-
-        return currentState;
-    }
-
-
 }

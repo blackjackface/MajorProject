@@ -4,29 +4,34 @@ using UnityEngine;
 
 public class Attack : Ability
 {
-   override public bool appliable(CharacterState character, List<CharacterState> targets)
+
+    override public void UseAbility(Character user, Character target)
     {
 
-     
-        return true; //can target everyone
-    }
-
-
-   override public RoundState Use(CharacterState character, List<CharacterState> targets, int currentTarget , RoundState currentState)
-    {
-        int damage = 0;
-
-        damage = character.attack - targets[currentTarget].defense;
-
+        int damage = user.currentAttack - target.currentDefense;
         if (damage < 0) {
             damage = 0;
         }
 
-        targets[currentTarget].hp -= damage;
-
-        currentState.characterStates[currentTarget].hp = targets[currentTarget].hp;
-        //TODO: averiguar como obtener un elemento que está en 2 listas.
-        return currentState;
+        target.currentHP -= damage;
+        
+        Debug.Log(" " +  user.name + "dealt " + damage.ToString() + " Damage to " + target.name);
+        if (target.currentHP <= 0) {
+            target.isDead = true;
+        }
+        
+        //here happens animation in battle.
     }
 
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
 }
