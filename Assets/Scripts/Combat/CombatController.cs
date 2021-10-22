@@ -22,11 +22,13 @@ public class CombatController : MonoBehaviour
     void CombatAct() {
 
 
-            foreach (Turn actTurn in roundList[roundIndex]) {
+        foreach (Turn actTurn in roundList[roundIndex]) {
 
-                actTurn.character.behaviour.Act(characters);    
-                
+                actTurn.character.behaviour.Act(characters);
+            if (actTurn.character.isPlayer == true) {
+                new WaitUntil(() => actTurn.character.behaviour.GetComponent<PlayerBehaviour>().hasTurnCompleted == true);
             }
+        }
         
         if (!characters.All(c => c.GetComponent<Character>().isDead))
         {
@@ -35,9 +37,15 @@ public class CombatController : MonoBehaviour
             generateRounds();
         }
     }
-               
-    
-    
+
+
+    IEnumerator waitUntilTurnCompleted(PlayerBehaviour playerBehaviour) {
+
+        yield return new WaitUntil(() => playerBehaviour.hasTurnCompleted == true);
+
+
+        playerBehaviour.hasTurnCompleted = false;
+    }   
 
 
     void generateRounds() {
@@ -48,7 +56,7 @@ public class CombatController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         
     }

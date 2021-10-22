@@ -13,8 +13,9 @@ public abstract class Behaviour : MonoBehaviour
     //Performs an offensive Action
 
     }
+
     // Start is called before the first frame update
-    void Start()
+    public virtual void Start()
     {
         self = GetComponent<Character>();
 
