@@ -19,7 +19,7 @@ public class AttackBehaviour : Behaviour
             target = characters[Random.Range(0, characters.Count)];
         }
 
-        ability.UseAbility(self,characters[Random.Range(0, characters.Count)]);
+        ability.UseAbility(characters[Random.Range(0, characters.Count)]);
 
 
     }

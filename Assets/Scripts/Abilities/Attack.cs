@@ -5,7 +5,7 @@ using UnityEngine;
 public class Attack : Ability
 {
 
-    override public void UseAbility(Character user, Character target)
+   public override  void UseAbility( Character target)
     {
 
         int damage = user.currentAttack - target.currentDefense;
@@ -19,9 +19,17 @@ public class Attack : Ability
         if (target.currentHP <= 0) {
             target.isDead = true;
         }
+
+       
         
         //here happens animation in battle.
     }
 
+
+    void PerformAnimation(int damage, Animator animation) {
+    
+    //pasan cosas y numeritos en pantalla
+    
+    }
 
 }

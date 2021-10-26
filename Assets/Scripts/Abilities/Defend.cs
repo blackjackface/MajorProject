@@ -5,7 +5,7 @@ using UnityEngine;
 public class Defend : Ability
 {
 
-    public override void UseAbility(Character user,Character target)
+    public override void UseAbility(Character target)
     {
         user.currentDefense =user.currentDefense + user.currentDefense/2;
         user.mana += 10;

@@ -10,7 +10,6 @@ public abstract class Behaviour : MonoBehaviour
     public Character self;
 
    public virtual void Act(List<Character> characters) {
-    //Performs an offensive Action
 
     }
 
@@ -22,7 +21,11 @@ public abstract class Behaviour : MonoBehaviour
         foreach (GameObject gameObject in self.abilities) {
 
           abilities.Add(gameObject.GetComponent<Ability>());
-        
+          
+        }
+        foreach (Ability ability in abilities) {
+
+            ability.user = self;
         }
     }
 

@@ -872,7 +872,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1185820845
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1214,9 +1214,13 @@ MonoBehaviour:
   abilities: []
   self: {fileID: 0}
   characterList: []
+  enemyList: []
+  allyList: []
+  buttons: []
   target: {fileID: 0}
-  canvas: {fileID: 0}
+  canvas: {fileID: 1643542054}
   buttonPrefab: {fileID: 7724776363526486087, guid: 531ed3acb3e0dcf448e93e8de74d4e10, type: 3}
+  hasTurnCompleted: 0
 --- !u!1001 &1430675193
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2005,6 +2009,10 @@ PrefabInstance:
     - target: {fileID: 7724776363526486087, guid: 531ed3acb3e0dcf448e93e8de74d4e10, type: 3}
       propertyPath: m_Name
       value: AttackButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 7724776363526486087, guid: 531ed3acb3e0dcf448e93e8de74d4e10, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 531ed3acb3e0dcf448e93e8de74d4e10, type: 3}
