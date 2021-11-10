@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Character : MonoBehaviour
 {
@@ -25,6 +26,7 @@ public class Character : MonoBehaviour
     public float turnGauge = 0.0f;
     public bool isPlayer = false;
     public Behaviour behaviour;
+    public UnityEvent m_MyEvent;
     //La barrita invisible de los turnos funciona de tal manera que se van rellenando
     //a lo largo del tiempo usando principalment el stat de agilidad
     // Start is called before the first frame update
@@ -36,12 +38,18 @@ public class Character : MonoBehaviour
         currentInteligence = inteligence;
         currentResistance = resistance;
         currentAgility = agility;
-
+       
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    void OnMouseDown()
+    {
+        m_MyEvent.Invoke();
+        Debug.Log(name + " ha sido pinchado");
     }
 }

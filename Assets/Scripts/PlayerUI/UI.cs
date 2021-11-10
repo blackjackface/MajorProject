@@ -8,16 +8,21 @@ public class UI : MonoBehaviour
     public Button attackButton;
     public Button defenseButton;
     public Button gambleButton;
-
-
+    public Character target;
+    public List<Character> players;
     
     // Start is called before the first frame update
     void Start()
     {
+        foreach (Character character in combatController.characters) {
+
+//            character.m_MyEvent.AddListener();
+
+        
+        }
         attackButton.onClick.AddListener(AttackButtonPress);
         defenseButton.onClick.AddListener(DefenseButtonPress);
         gambleButton.onClick.AddListener(GambleButtonPress);
-
     }
 
     // Update is called once per frame
@@ -26,9 +31,9 @@ public class UI : MonoBehaviour
         switch (combatController.state)
         {
             case CombatController.State.PLAYER_SELECTING_COMMAND:
-                attackButton.interactable = true;
-                defenseButton.interactable = true;
-                gambleButton.interactable = true;
+                attackButton.gameObject.SetActive(true);
+                defenseButton.gameObject.SetActive(true);
+                gambleButton.gameObject.SetActive(true);
                 break;
             case CombatController.State.SELECTING_TURN:                
             case CombatController.State.END_OF_ROUND:              
@@ -39,9 +44,9 @@ public class UI : MonoBehaviour
             case CombatController.State.PLAYER_SELECTING_ABILITY:             
             case CombatController.State.PLAYER_GAMBLEING:             
             case CombatController.State.END_OF_TURN:
-                attackButton.interactable = false;
-                defenseButton.interactable = false;
-                gambleButton.interactable = false;
+                attackButton.gameObject.SetActive(false);
+                defenseButton.gameObject.SetActive(false);
+                gambleButton.gameObject.SetActive(false);
                 break;
         }
 
@@ -50,7 +55,7 @@ public class UI : MonoBehaviour
     void AttackButtonPress() {
         Debug.Log("he atacao");
         CombatEvent combatEvent = new CombatEvent();
-        combatEvent.eventType = CombatEvent.EventType.PLAYER_COMMAND;
+        combatEvent.eventType = CombatEvent.EventType.SELECT_TARGET;
         combatEvent.playerCommand = CombatEvent.PlayerCommand.ATTACK;
         combatController.eventList.Add(combatEvent);
 
