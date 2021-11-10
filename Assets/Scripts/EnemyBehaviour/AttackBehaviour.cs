@@ -7,24 +7,32 @@ public class AttackBehaviour : Behaviour
     //Lista de personajes el cual son personajes enemigos
 
 
-   public override void Act(List<Character> characters)
+   public override void Act(Character user, List<Character> targets)
     {
         //Performs an offensive Action
 
         Ability ability = abilities[0];
-        Character target = characters[Random.Range(0, characters.Count)];
+        Character target = targets[Random.Range(0, targets.Count)];
 
         while (target == this.gameObject.GetComponent<Character>()) {
             
-            target = characters[Random.Range(0, characters.Count)];
+            target = targets[Random.Range(0, targets.Count)];
         }
 
-        ability.UseAbility(characters[Random.Range(0, characters.Count)]);
+        ability.UseAbility(user,targets[Random.Range(0, targets.Count)]);
 
 
     }
 
+    public override void ShowText()
+    {
 
+        Ability ability = abilities[0];
+        ability.ShowText();
+        textToShow = ability.showText;
+
+
+    }
     // Start is called before the first frame update
 
 

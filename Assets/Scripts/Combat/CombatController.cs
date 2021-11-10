@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Timers;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CombatController : MonoBehaviour
 {
@@ -11,70 +12,116 @@ public class CombatController : MonoBehaviour
     List<List<Turn>> roundList = new List<List<Turn>>();
     RoundController roundController;
     int roundIndex = 0;
-    List<TestEvent> testEventList = new List<TestEvent>();
+    public List<CombatEvent> eventList = new List<CombatEvent>();
+    int characterIndex = 0;
+    Turn actTurn = new Turn();
+    public Text text;
     public enum State {
+        SELECTING_TURN,
+        END_OF_ROUND,
+        END_OF_COMBAT,
         ENEMY_TURN,
         ENEMY_ANIMATION,
         PLAYER_SELECTING_COMMAND,
         PLAYER_SELECTING_TARGET,
         PLAYER_SELECTING_ABILITY,
         PLAYER_GAMBLEING,
-        LAST
+        END_OF_TURN
     }
     public State state;
-    void ProcessEvent(TestEvent testEvent) {
+    void ProcessEvent(CombatEvent processEvent) {
+
+   /*     if (processEvent.eventType == CombatEvent.EventType.START_COMBAT) {
+            state = State.SELECTING_TURN;
+        
+        }*/
         switch (state)
         {
 
-            case State.ENEMY_TURN:
-                if (testEvent.eventType == TestEvent.EventType.START_ATTACK) {
-                    //todo añadir enemyact()
-                    state = State.ENEMY_ANIMATION;
+            case State.SELECTING_TURN:
+                if (roundList.Count == 0) {
+                //    state = State.END_OF_COMBAT;
+                    break;
+                } //end of combat
+                if (roundList[0].Count == 0) {
+                    state = State.END_OF_ROUND;
+                    
+                    break;
+                } //end of round
+                actTurn = roundList[0][0];
+                roundList[0].RemoveAt(0);
+                
 
+                if (actTurn.character.isPlayer) {
+                    CombatEvent combatEvent = new CombatEvent();
+                    combatEvent.eventType = CombatEvent.EventType.PLAYER_COMMAND;
+                    eventList.Add(combatEvent);
+                    state = State.PLAYER_SELECTING_COMMAND;
                 }
+                else {  
+                    CombatEvent combatEvent = new CombatEvent();
+                    combatEvent.eventType = CombatEvent.EventType.START_ATTACK;
+                    eventList.Add(combatEvent);
+                    state = State.ENEMY_TURN; 
+                }
+                break;
+
+            case State.ENEMY_TURN:
+
+                //      if (processEvent.eventType == CombatEvent.EventType.START_ATTACK) {
+    
+                actTurn.character.behaviour.Act(actTurn.character, characters);
+                CombatEvent testEvento = new CombatEvent();
+                testEvento.eventType = CombatEvent.EventType.FINISH_ANIMATION;
+                eventList.Add(testEvento);
+                state = State.ENEMY_ANIMATION;
+          //      }
 
                 break;
             case State.ENEMY_ANIMATION:
-                if (testEvent.eventType == TestEvent.EventType.FINISH_ANIMATION)
-                {
-                    //todo añadir EnemyAnimationComplete()
-                    state = State.PLAYER_SELECTING_COMMAND;
-                }
+
+                actTurn.character.behaviour.ShowText();
+                text.text = actTurn.character.behaviour.textToShow;
+                StartCoroutine(Vanish());
+
+
+
                 break;            
             case State.PLAYER_SELECTING_COMMAND:
-                if (testEvent.eventType == TestEvent.EventType.PLAYER_COMMAND)
+                if (processEvent.eventType == CombatEvent.EventType.PLAYER_COMMAND)
                 {
-                    switch (testEvent.playerCommand) {
-                        case TestEvent.PlayerCommand.GAMBLE:
-                            //todo una función
+
+                    
+                    switch (processEvent.playerCommand) {
+                        case CombatEvent.PlayerCommand.GAMBLE:
+                            //todo una funciÃ³n
                             state = State.PLAYER_GAMBLEING;
                             break;                       
-                        case TestEvent.PlayerCommand.ATTACK:
-
+                        case CombatEvent.PlayerCommand.ATTACK:
+                        //todo aÃ±adir comando de seleccionar objetivo
+                        // character.processTurn.attack
+                        state = State.END_OF_TURN;
                             break;                       
-                        case TestEvent.PlayerCommand.DEFEND:
-
+                        case CombatEvent.PlayerCommand.DEFEND:
+                        //todo aÃ±adir comando de defenderse
                             break;
-                    
-                    
-                    
                     }
-                    //todo añadir EnemyAnimationComplete()
+                    //todo aÃ±adir EnemyAnimationComplete()
                     state = State.PLAYER_SELECTING_COMMAND;
                 }
                 break;
             case State.PLAYER_SELECTING_TARGET:
                 break;
             case State.PLAYER_GAMBLEING:
-                if (testEvent.eventType == TestEvent.EventType.SELECTGAMBLE)
+                if (processEvent.eventType == CombatEvent.EventType.SELECTGAMBLE)
                     {
-                    switch (testEvent.gambleCommand)
+                    switch (processEvent.gambleCommand)
                     {
-                        case TestEvent.GambleCommand.GAMBLEBIG:
+                        case CombatEvent.GambleCommand.GAMBLEBIG:
                             break;
-                        case TestEvent.GambleCommand.GAMBLESMALL:
+                        case CombatEvent.GambleCommand.GAMBLESMALL:
                             break;
-                        case TestEvent.GambleCommand.CANCEL:
+                        case CombatEvent.GambleCommand.CANCEL:
                             // todo remove gamble UX
                             state = State.PLAYER_SELECTING_COMMAND;
                             break;
@@ -83,9 +130,14 @@ public class CombatController : MonoBehaviour
                 break;            
             case State.PLAYER_SELECTING_ABILITY:
                 break;
+            case State.END_OF_TURN:
+                state = State.SELECTING_TURN;
+                break;
+            case State.END_OF_ROUND:
+                generateRounds();
+                state = State.SELECTING_TURN;
+                break;
         }
-
-
     }
 
 
@@ -93,7 +145,7 @@ public class CombatController : MonoBehaviour
         int index = 0;
         index = (int) state;
         index++;
-        if (index == (int)State.LAST) {
+        if (index == (int)State.END_OF_TURN) {
             index = 0;
         
         }
@@ -101,52 +153,41 @@ public class CombatController : MonoBehaviour
     
     }
 
-  /* 
-   private async void OnTimedEvent(Object source, ElapsedEventArgs e)
-    {
-        TestEvent testEvent = new TestEvent();
-        testEvent.eventType = TestEvent.EventType.FINISH_ANIMATION;
-        testEventList.Add(testEvent);
-    }
-    void enemyAct() {
-      // todo perform action
-        // simulate animation delay        
-      //  Timer t = new Timer(1000);
-      //  t.AutoReset = true;
-      //  t.Elapsed += new ElapsedEventHandler(OnTimedEvent);
-      //  t.Start();
-        
+    IEnumerator Vanish() {
 
-
+        yield return new WaitForSecondsRealtime(2.5f);
+        text.text = "";
+        StartTurn();
     }
-  */
-    // Start is called before the first frame update
+
     void Start()
     {
-        generateRounds();
-        TestEvent testEvent = new TestEvent();
-        testEvent.eventType = TestEvent.EventType.START_COMBAT;
-        testEventList.Add(testEvent);
-    }
-    
-    void CombatAct() {
-
-
-        foreach (Turn actTurn in roundList[roundIndex]) {
-
-                actTurn.character.behaviour.Act(characters);
-
-        }
         
-        if (!characters.All(c => c.GetComponent<Character>().isDead))
-        {
-            
-            roundIndex++;
-            generateRounds();
-        }
+        generateRounds();
+        StartTurn();
     }
 
+    void StartTurn() {
 
+        CombatEvent testEvent = new CombatEvent();
+        testEvent.eventType = CombatEvent.EventType.START_COMBAT;
+        eventList.Add(testEvent);
+        state = State.SELECTING_TURN;
+
+    }
+
+    void Update()
+    {
+        if (eventList.Count != 0)
+        {
+            CombatEvent combatEvent = eventList.Last();
+            eventList.RemoveAt(eventList.Count - 1);
+            ProcessEvent(combatEvent);
+        }
+
+    }
+
+//create a new function which returns an integer
     IEnumerator waitUntilTurnCompleted(PlayerBehaviour playerBehaviour) {
 
         yield return new WaitUntil(() => playerBehaviour.hasTurnCompleted == true);
@@ -160,17 +201,9 @@ public class CombatController : MonoBehaviour
         roundController = new RoundController(characters);
         roundController.CalculateTurn(characters);
         roundList.Add(roundController.turns);
-        CombatAct();
+       // CombatAct();
     }
 
     // Update is called once per frame
-     void Update()
-    {
-        if (testEventList.Count != 0) {
-            ProcessEvent(testEventList.Last());
-            testEventList.RemoveAt(testEventList.Count - 1 );
-               
-        }
-        
-    }
+
 }

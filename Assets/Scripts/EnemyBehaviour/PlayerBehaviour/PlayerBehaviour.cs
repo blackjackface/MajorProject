@@ -22,8 +22,8 @@ public class PlayerBehaviour : Behaviour
         allyList = characterList.FindAll(character => character.isPlayer);
     }
     void CreateButtons() {
-        GameObject buttonAttack = ButtonConstructor(new Vector3(320,-90,0),"Attack",abilities.Find(ability => ability.name.Contains("Attack")));
-        GameObject buttonDefend = ButtonConstructor(new Vector3(320, -120, 0), "Defend", abilities.Find(ability => ability.name.Contains("Defend")));           
+ //       GameObject buttonAttack = ButtonConstructor(new Vector3(320,-90,0),"Attack",abilities.Find(ability => ability.name.Contains("Attack")));
+ //       GameObject buttonDefend = ButtonConstructor(new Vector3(320, -120, 0), "Defend", abilities.Find(ability => ability.name.Contains("Defend")));           
     }
 
     IEnumerator targetSelect() {
@@ -47,12 +47,12 @@ public class PlayerBehaviour : Behaviour
         createdButton.GetComponent<RectTransform>().position = new Vector3(position.x+ canvas.GetComponent<RectTransform>().position.x, position.y + canvas.GetComponent<RectTransform>().position.y, 0);
         createdButton.GetComponent<RectTransform>().SetParent(canvas.transform);
         createdButton.GetComponentInChildren<Text>().text = text;
-        createdButton.GetComponent<Button>().onClick.AddListener(() => ability.UseAbility( target));
+        createdButton.GetComponent<Button>().onClick.AddListener(() => ability.UseAbility(this.GetComponent<Character>() ,target));
         return  createdButton;
     }
     void AbilityListener(Ability ability) {
 
-        ability.UseAbility( target);
+        ability.UseAbility(this.GetComponent<Character>(), target);
     }
     void Gamble()
     {
@@ -67,10 +67,10 @@ public class PlayerBehaviour : Behaviour
     }
 
 
-    public override void Act(List<Character> characters)
+    public override void Act(Character user, List<Character> targets)
     {
-
-        StartCoroutine(ActPlayer());
+        Debug.Log("PlayerBehaviour.act");
+  //      StartCoroutine(ActPlayer());
 
     }
 

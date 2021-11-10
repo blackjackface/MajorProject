@@ -7,26 +7,26 @@ public abstract class Behaviour : MonoBehaviour
     //this behaviour is considered to be dum-dum and almost just attacks and attacks until one of both dies
 
     public List<Ability> abilities;
-    public Character self;
+    public string textToShow;
+ //   public Character user;
 
-   public virtual void Act(List<Character> characters) {
+   public virtual void Act(Character user, List<Character> targets) {
 
     }
-
+    public virtual void ShowText()
+    {
+        
+    }
     // Start is called before the first frame update
     public virtual void Start()
     {
-        self = GetComponent<Character>();
+  /*      user = this.gameObject.GetComponent<Character>();
 
-        foreach (GameObject gameObject in self.abilities) {
-
-          abilities.Add(gameObject.GetComponent<Ability>());
-          
-        }
         foreach (Ability ability in abilities) {
 
-            ability.user = self;
+            ability.user = user;
         }
+  */
     }
 
     // Update is called once per frame

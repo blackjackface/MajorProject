@@ -29,6 +29,8 @@ public class RoundController
                     character.turnGauge -= 100;
                     Turn turn = new Turn();
                     turn.character = character;
+
+                    Debug.Log(character.name + " Has obtained a turn");
                     turns.Add(turn);
                 //TODO AÑADIR TURNOS A LA LISTA DE TURNOS, OTORGÁNDOSELO AL JUGADOR O ENEMIGO
                 }   

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
+
+    
     public string name = "name";
     public int maxHP = 10;
     public int currentHP = 10;
@@ -20,13 +22,11 @@ public class Character : MonoBehaviour
     public int mana = 0;
     public float initiative = 0.0f;
     public bool isDead = false;
-    public List<GameObject> abilities;
     public float turnGauge = 0.0f;
     public bool isPlayer = false;
     public Behaviour behaviour;
     //La barrita invisible de los turnos funciona de tal manera que se van rellenando
     //a lo largo del tiempo usando principalment el stat de agilidad
-    //Add a list of abilities
     // Start is called before the first frame update
     void Start()
     {
