@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class CombatEvent
 {
+
+    public List<Character> targets =  new List<Character>();
+
     public enum EventType {
         START_COMBAT,
         START_ATTACK,
         FINISH_ANIMATION,
         START_PLAYER_TURN,
-        SELECT_TARGET,
+        SELECT_TARGET,        
         PLAYER_COMMAND,
-        SELECTGAMBLE
+        SELECTGAMBLE,
+        DUMMY
     }
     public enum PlayerCommand {
         ATTACK,

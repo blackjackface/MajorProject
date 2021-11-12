@@ -7,14 +7,17 @@ using UnityEngine.UI;
 
 public class CombatController : MonoBehaviour
 {
-  public List<Character> characters = new List<Character>();
+   public List<Character> characters = new List<Character>();
     //A round is a list of turns, so a list of a list of turns should make sense
     List<List<Turn>> roundList = new List<List<Turn>>();
     RoundController roundController;
+    public List<Character> players = new List<Character>();
+    public int playerIndex = 0;
+    public int abilityIndex = 0;
+    public bool targetIsConfirmed = false;
     int roundIndex = 0;
     public List<CombatEvent> eventList = new List<CombatEvent>();
-    int characterIndex = 0;
-    Turn actTurn = new Turn();
+   public Turn actTurn = new Turn();
     public Text text;
     public enum State {
         SELECTING_TURN,
@@ -25,6 +28,7 @@ public class CombatController : MonoBehaviour
         PLAYER_SELECTING_COMMAND,
         PLAYER_SELECTING_TARGET,
         PLAYER_SELECTING_ABILITY,
+        PLAYER_PERFORMING_ACTION,
         PLAYER_GAMBLEING,
         END_OF_TURN
     }
@@ -40,12 +44,11 @@ public class CombatController : MonoBehaviour
 
             case State.SELECTING_TURN:
                 if (roundList.Count == 0) {
-                //    state = State.END_OF_COMBAT;
+                    GoToState(State.END_OF_COMBAT);
                     break;
                 } //end of combat
                 if (roundList[0].Count == 0) {
-                    state = State.END_OF_ROUND;
-                    
+                    GoToState(State.END_OF_ROUND);                 
                     break;
                 } //end of round
                 actTurn = roundList[0][0];
@@ -69,7 +72,7 @@ public class CombatController : MonoBehaviour
             case State.ENEMY_TURN:
 
                 //      if (processEvent.eventType == CombatEvent.EventType.START_ATTACK) {
-    
+                
                 actTurn.character.behaviour.Act(actTurn.character, characters);
                 CombatEvent testEvento = new CombatEvent();
                 testEvento.eventType = CombatEvent.EventType.FINISH_ANIMATION;
@@ -111,6 +114,19 @@ public class CombatController : MonoBehaviour
                 }
                 break;
             case State.PLAYER_SELECTING_TARGET:
+                if (processEvent.eventType == CombatEvent.EventType.START_ATTACK) {
+                    if (targetIsConfirmed)
+                    {
+                        actTurn.character.behaviour.abilities[0].UseAbility(actTurn.character, processEvent.targets[0]);
+                        targetIsConfirmed = false;
+                        GoToState(State.PLAYER_PERFORMING_ACTION);
+                        //adaptarlo a esta estructura
+                    }
+                    
+                }
+                break;
+            case State.PLAYER_PERFORMING_ACTION:
+                GoToState(State.END_OF_TURN);
                 break;
             case State.PLAYER_GAMBLEING:
                 if (processEvent.eventType == CombatEvent.EventType.SELECTGAMBLE)
@@ -123,7 +139,7 @@ public class CombatController : MonoBehaviour
                             break;
                         case CombatEvent.GambleCommand.CANCEL:
                             // todo remove gamble UX
-                            state = State.PLAYER_SELECTING_COMMAND;
+                            GoToState(State.PLAYER_SELECTING_COMMAND);
                             break;
                     }
                 }
@@ -131,15 +147,29 @@ public class CombatController : MonoBehaviour
             case State.PLAYER_SELECTING_ABILITY:
                 break;
             case State.END_OF_TURN:
-                state = State.SELECTING_TURN;
+                GoToState(State.SELECTING_TURN);
                 break;
             case State.END_OF_ROUND:
+                roundList.RemoveAt(0);
                 generateRounds();
-                state = State.SELECTING_TURN;
+                StartTurn();
                 break;
         }
     }
 
+
+    Character GetRandomPlayer() {
+
+        Character target = characters[Random.Range(0, characters.Count)];
+
+        while (!target.isPlayer)
+        {
+            target = characters[Random.Range(0, characters.Count)];
+        }
+
+        return target;
+
+    }
 
     public void ChangeState() {
         int index = 0;
@@ -155,7 +185,7 @@ public class CombatController : MonoBehaviour
 
     IEnumerator Vanish() {
 
-        yield return new WaitForSecondsRealtime(2.5f);
+        yield return new WaitForSecondsRealtime(0.1f);
         text.text = "";
         StartTurn();
     }
@@ -174,6 +204,16 @@ public class CombatController : MonoBehaviour
         eventList.Add(testEvent);
         state = State.SELECTING_TURN;
 
+    }
+
+    void GoToState(State newState)
+    {
+
+        CombatEvent testEvent = new CombatEvent();
+        testEvent.eventType = CombatEvent.EventType.DUMMY;
+        eventList.Add(testEvent);
+        state = newState;
+        
     }
 
     void Update()

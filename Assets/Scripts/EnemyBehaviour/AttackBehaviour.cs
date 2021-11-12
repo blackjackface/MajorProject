@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.Linq;
 public class AttackBehaviour : Behaviour
 {
     //Lista de personajes el cual son personajes enemigos
@@ -14,15 +14,16 @@ public class AttackBehaviour : Behaviour
         Ability ability = abilities[0];
         Character target = targets[Random.Range(0, targets.Count)];
 
-        while (target == this.gameObject.GetComponent<Character>()) {
-            
-            target = targets[Random.Range(0, targets.Count)];
+        while (target == user || !target.isPlayer) {
+                target = targets[Random.Range(0, targets.Count)];
         }
 
         ability.UseAbility(user,targets[Random.Range(0, targets.Count)]);
 
 
     }
+
+    
 
     public override void ShowText()
     {

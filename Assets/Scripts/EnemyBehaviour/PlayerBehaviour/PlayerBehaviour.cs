@@ -42,14 +42,7 @@ public class PlayerBehaviour : Behaviour
         //mover de derecha o izquierda para que el índice se mueva y cambie de enemigo                
     }
 
-    GameObject ButtonConstructor(Vector3 position, string text, Ability ability) {
-        GameObject createdButton = Instantiate(buttonPrefab);
-        createdButton.GetComponent<RectTransform>().position = new Vector3(position.x+ canvas.GetComponent<RectTransform>().position.x, position.y + canvas.GetComponent<RectTransform>().position.y, 0);
-        createdButton.GetComponent<RectTransform>().SetParent(canvas.transform);
-        createdButton.GetComponentInChildren<Text>().text = text;
-        createdButton.GetComponent<Button>().onClick.AddListener(() => ability.UseAbility(this.GetComponent<Character>() ,target));
-        return  createdButton;
-    }
+
     void AbilityListener(Ability ability) {
 
         ability.UseAbility(this.GetComponent<Character>(), target);
@@ -60,10 +53,8 @@ public class PlayerBehaviour : Behaviour
     IEnumerator ActPlayer() {
 
         while (this.hasTurnCompleted != true) {
-
             yield return null;
         }
-
     }
 
 

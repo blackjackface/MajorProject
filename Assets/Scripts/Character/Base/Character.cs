@@ -25,8 +25,10 @@ public class Character : MonoBehaviour
     public bool isDead = false;
     public float turnGauge = 0.0f;
     public bool isPlayer = false;
+    public int playerIndex = -1;
     public Behaviour behaviour;
     public UnityEvent m_MyEvent;
+    public Vector3 originalPosition;
     //La barrita invisible de los turnos funciona de tal manera que se van rellenando
     //a lo largo del tiempo usando principalment el stat de agilidad
     // Start is called before the first frame update
@@ -38,7 +40,7 @@ public class Character : MonoBehaviour
         currentInteligence = inteligence;
         currentResistance = resistance;
         currentAgility = agility;
-       
+        originalPosition = GetComponent<Transform>().position;
     }
 
     // Update is called once per frame
@@ -49,7 +51,7 @@ public class Character : MonoBehaviour
 
     void OnMouseDown()
     {
+        Debug.Log("has pinchao a: " + name);
         m_MyEvent.Invoke();
-        Debug.Log(name + " ha sido pinchado");
     }
 }
