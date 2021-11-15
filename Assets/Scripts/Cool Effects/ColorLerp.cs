@@ -7,17 +7,22 @@ public class ColorLerp : MonoBehaviour
     // Start is called before the first frame update
     Color baseColor;
     Color white = new Color(1, 1, 1);
-    float speed = 0.05f;
+    [SerializeField]
+    float speed = 1f;
+    [SerializeField]
+    float baseColorGray = 0.6f;
+
+
     void Start()
     {
-        baseColor = GetComponent<SpriteRenderer>().color;
+        baseColor = new Color(baseColorGray, baseColorGray, baseColorGray);
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        GetComponent<SpriteRenderer>().material.color = Color.LerpUnclamped(baseColor, white, Mathf.PingPong(Time.time, 1.25f));
+        GetComponent<SpriteRenderer>().color = Color.LerpUnclamped(baseColor, white, Mathf.PingPong(Time.time, speed));
 
     }
 }

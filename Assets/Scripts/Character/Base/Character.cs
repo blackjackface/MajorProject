@@ -28,6 +28,7 @@ public class Character : MonoBehaviour
     public int playerIndex = -1;
     public Behaviour behaviour;
     public UnityEvent m_MyEvent;
+    public bool isDefending = false;
     public Vector3 originalPosition;
     //La barrita invisible de los turnos funciona de tal manera que se van rellenando
     //a lo largo del tiempo usando principalment el stat de agilidad

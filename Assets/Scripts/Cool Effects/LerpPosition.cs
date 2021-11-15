@@ -13,7 +13,7 @@ public class LerpPosition : MonoBehaviour
     {
         InitialPosition = GetComponent<Transform>().position;
         targetPosition = InitialPosition;
-        targetPosition.y += 0.28f;
+        targetPosition.y += 0.50f;
     }
 
     // Update is called once per frame

@@ -9,13 +9,20 @@ public class CombatController : MonoBehaviour
 {
    public List<Character> characters = new List<Character>();
     //A round is a list of turns, so a list of a list of turns should make sense
+    [SerializeField]
     List<List<Turn>> roundList = new List<List<Turn>>();
     RoundController roundController;
     public List<Character> players = new List<Character>();
+    [SerializeField]
+    List<Character> playerCharacters = new List<Character>();
+    [SerializeField]
+    List<Character> EnemyCharacters = new List<Character>();
     public int playerIndex = 0;
     public int abilityIndex = 0;
     public bool targetIsConfirmed = false;
     int roundIndex = 0;
+    [SerializeField]
+    List<Turn> currentRound = new List<Turn>();
     public List<CombatEvent> eventList = new List<CombatEvent>();
    public Turn actTurn = new Turn();
     public Text text;
@@ -35,10 +42,13 @@ public class CombatController : MonoBehaviour
     public State state;
     void ProcessEvent(CombatEvent processEvent) {
 
-   /*     if (processEvent.eventType == CombatEvent.EventType.START_COMBAT) {
-            state = State.SELECTING_TURN;
-        
-        }*/
+        /*     if (processEvent.eventType == CombatEvent.EventType.START_COMBAT) {
+                 state = State.SELECTING_TURN;
+
+             }*/
+
+
+
         switch (state)
         {
 
@@ -124,8 +134,17 @@ public class CombatController : MonoBehaviour
                     }
                     
                 }
+
+                if (processEvent.eventType == CombatEvent.EventType.START_DEFENSE) {
+
+                    actTurn.character.behaviour.abilities[1].UseAbility(actTurn.character);
+                    targetIsConfirmed = false;
+                    actTurn.character.currentDefense = (int)((int)actTurn.character.currentDefense * 1.5f);
+                    GoToState(State.PLAYER_PERFORMING_ACTION);
+                }
                 break;
             case State.PLAYER_PERFORMING_ACTION:
+                actTurn.character.behaviour.ShowText();
                 GoToState(State.END_OF_TURN);
                 break;
             case State.PLAYER_GAMBLEING:
@@ -146,31 +165,27 @@ public class CombatController : MonoBehaviour
                 break;            
             case State.PLAYER_SELECTING_ABILITY:
                 break;
+
+
             case State.END_OF_TURN:
                 GoToState(State.SELECTING_TURN);
                 break;
+
+
             case State.END_OF_ROUND:
                 roundList.RemoveAt(0);
                 generateRounds();
                 StartTurn();
                 break;
+
+            case State.END_OF_COMBAT:
+                text.text = "Combat is finished!";
+                break;
         }
     }
 
 
-    Character GetRandomPlayer() {
-
-        Character target = characters[Random.Range(0, characters.Count)];
-
-        while (!target.isPlayer)
-        {
-            target = characters[Random.Range(0, characters.Count)];
-        }
-
-        return target;
-
-    }
-
+  
     public void ChangeState() {
         int index = 0;
         index = (int) state;
@@ -185,14 +200,24 @@ public class CombatController : MonoBehaviour
 
     IEnumerator Vanish() {
 
-        yield return new WaitForSecondsRealtime(0.1f);
+        yield return new WaitForSecondsRealtime(1f);
         text.text = "";
         StartTurn();
     }
 
     void Start()
     {
-        
+
+        foreach (Character character in characters) {
+            if (character.isPlayer)
+            {
+                playerCharacters.Add(character);
+            }
+            else {
+                EnemyCharacters.Add(character);            
+            }
+                
+        }
         generateRounds();
         StartTurn();
     }
@@ -224,6 +249,37 @@ public class CombatController : MonoBehaviour
             eventList.RemoveAt(eventList.Count - 1);
             ProcessEvent(combatEvent);
         }
+        currentRound = roundList[0];
+
+
+        //todo list para más tarde: arreglar la lógica para poder ver la lista de turnos de manera adecuada
+        foreach (Character character in characters) {
+            int index = 0;
+            if (character.isDead)
+            {
+
+
+                roundList[0].RemoveAll(s => s.character.isDead);
+                character.gameObject.SetActive(false);
+            }        
+        }
+
+        if(playerCharacters.All(character => character.isDead))
+        {
+
+            GoToState(State.END_OF_COMBAT);
+
+        }
+
+        if (EnemyCharacters.All(character => character.isDead))
+        {
+
+
+            GoToState(State.END_OF_COMBAT);
+
+        }
+
+
 
     }
 
@@ -241,6 +297,7 @@ public class CombatController : MonoBehaviour
         roundController = new RoundController(characters);
         roundController.CalculateTurn(characters);
         roundList.Add(roundController.turns);
+        
        // CombatAct();
     }
 

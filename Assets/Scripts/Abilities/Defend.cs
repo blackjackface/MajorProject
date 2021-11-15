@@ -5,11 +5,18 @@ using UnityEngine;
 public class Defend : Ability
 {
 
-    public override void UseAbility(Character user, Character target)
+    int manaGain = 10;
+
+    public override void UseAbility(Character user)
     {
-        user.currentDefense =user.currentDefense + user.currentDefense/2;
-        user.mana += 10;
+        userName = user.name;
+
+        user.isDefending = true;
+        user.mana += manaGain;
         //happends until the end of the turn
     }
-
+    public override void ShowText()
+    {
+        showText = userName + " defends, gaining: " + manaGain.ToString()  + " mana!";
+    }
 }

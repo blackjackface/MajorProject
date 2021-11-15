@@ -10,6 +10,7 @@ public class CombatEvent
     public enum EventType {
         START_COMBAT,
         START_ATTACK,
+        START_DEFENSE,
         FINISH_ANIMATION,
         START_PLAYER_TURN,
         SELECT_TARGET,        

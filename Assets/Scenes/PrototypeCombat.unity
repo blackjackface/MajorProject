@@ -652,56 +652,6 @@ Transform:
   m_Father: {fileID: 1643542055}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &882337942
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 882337943}
-  - component: {fileID: 882337944}
-  m_Layer: 0
-  m_Name: UI
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &882337943
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 882337942}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.69050205, y: 1.8924272, z: -1.0070677}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 13
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &882337944
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 882337942}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64602246da53fc5468454811e97c1c71, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  combatController: {fileID: 2021160568}
-  attackButton: {fileID: 1849547457}
-  defenseButton: {fileID: 1185820846}
-  gambleButton: {fileID: 46848271}
-  target: {fileID: 0}
-  buttonPrefab: {fileID: 7724776363526486087, guid: 531ed3acb3e0dcf448e93e8de74d4e10, type: 3}
-  canvas: {fileID: 1643542054}
 --- !u!1 &1029355933
 GameObject:
   m_ObjectHideFlags: 0
@@ -907,7 +857,7 @@ MonoBehaviour:
   agility: 5
   currentAgility: 5
   mana: 0
-  initiative: 7
+  initiative: 9
   isDead: 0
   turnGauge: 0
   isPlayer: 0
@@ -1095,8 +1045,16 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9223122194104762440, guid: b240cfb993797914ea02a161622332a5, type: 3}
+      propertyPath: speed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9223122194104762440, guid: b240cfb993797914ea02a161622332a5, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9223122194104762440, guid: b240cfb993797914ea02a161622332a5, type: 3}
+      propertyPath: baseColorGray
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 9223122194104762450, guid: b240cfb993797914ea02a161622332a5, type: 3}
       propertyPath: m_Name
@@ -1360,8 +1318,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: player
-  maxHP: 10
-  currentHP: 10
+  maxHP: 100
+  currentHP: 100
   attack: 16
   currentAttack: 5
   defense: 5
@@ -1373,7 +1331,7 @@ MonoBehaviour:
   agility: 5
   currentAgility: 5
   mana: 0
-  initiative: 0
+  initiative: 9
   isDead: 0
   turnGauge: 0
   isPlayer: 1
@@ -1516,7 +1474,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9223122194104762452, guid: b240cfb993797914ea02a161622332a5, type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 9223122194104762452, guid: b240cfb993797914ea02a161622332a5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1524,7 +1482,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9223122194104762452, guid: b240cfb993797914ea02a161622332a5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.46
+      value: 1.86
       objectReference: {fileID: 0}
     - target: {fileID: 9223122194104762452, guid: b240cfb993797914ea02a161622332a5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1784,7 +1742,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1685037338}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 35fbb4debe0abe0459913be0c5fddca1, type: 3}
   m_Name: 
@@ -2085,8 +2043,13 @@ MonoBehaviour:
   - {fileID: 1164255022}
   - {fileID: 1404896186}
   players: []
+  playerCharacters: []
+  EnemyCharacters: []
   playerIndex: 0
   abilityIndex: 0
+  targetIsConfirmed: 0
+  currentRound: []
+  actTurn: {fileID: 0}
   text: {fileID: 1316219134}
   state: 0
 --- !u!4 &2021160569
@@ -2306,7 +2269,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7825267175011132022, guid: 3bd20f00c1d88db47903a9d40933498b, type: 3}
       propertyPath: m_RootOrder
-      value: 16
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 7825267175011132022, guid: 3bd20f00c1d88db47903a9d40933498b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2555,7 +2518,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6911431081805767468, guid: 90e3fe87869e75c4fb5fa762904a4a63, type: 3}
       propertyPath: m_RootOrder
-      value: 15
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 6911431081805767468, guid: 90e3fe87869e75c4fb5fa762904a4a63, type: 3}
       propertyPath: m_LocalPosition.x

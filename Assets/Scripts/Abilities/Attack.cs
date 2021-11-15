@@ -8,8 +8,7 @@ public class Attack : Ability
 
 
     int damage = 0;
-    string userName;
-    string targetName;
+
     
 
     

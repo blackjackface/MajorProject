@@ -27,9 +27,9 @@ public class UI : MonoBehaviour
             character.playerIndex = index;
             List<GameObject> buttonList = new List<GameObject>();
             if (character.isPlayer && character.behaviour.abilities.Count > 2) {
-                int initialX = 225; //values taken from scene, may change later
-                int initialY = 209;
-                int anotherInitialValueX = 315;
+                int initialX = 266; //values taken from scene, may change later
+                int initialY = 300;
+                int anotherInitialValueX = 440;
                 int additionalY = 0;
                 bool isLeft = true;
 
@@ -41,7 +41,7 @@ public class UI : MonoBehaviour
                     } else {
                     createdButton = ButtonConstructor(new Vector3(anotherInitialValueX, initialY + additionalY, 0), 
                         character.behaviour.abilities[i].abilityName, character.behaviour.abilities[i]);
-                        additionalY += 25;
+                        additionalY -= 28;
                     }
                     createdButton.gameObject.SetActive(false);
                     buttonList.Add(createdButton);
@@ -63,7 +63,9 @@ public class UI : MonoBehaviour
 
     GameObject ButtonConstructor(Vector3 position, string text, Ability ability)
     {
-        GameObject createdButton = Instantiate(buttonPrefab);
+
+        GameObject createdButton = Instantiate(buttonPrefab); 
+        createdButton.GetComponent<RectTransform>().SetParent(canvas.transform);
         createdButton.GetComponent<RectTransform>().position = new Vector3(position.x + canvas.GetComponent<RectTransform>().position.x, position.y + canvas.GetComponent<RectTransform>().position.y, 0);
         createdButton.GetComponent<RectTransform>().SetParent(canvas.transform);
         createdButton.GetComponentInChildren<Text>().text = text;
@@ -89,8 +91,8 @@ public class UI : MonoBehaviour
             case CombatController.State.PLAYER_SELECTING_TARGET:            
             case CombatController.State.PLAYER_SELECTING_ABILITY:             
             case CombatController.State.PLAYER_GAMBLEING:
-             int   playerIndex =  combatController.actTurn.character.playerIndex;
-                buttonListPerCharacter[playerIndex].ForEach(x => x.SetActive(true));
+             int playerIndex =  combatController.actTurn.character.playerIndex;
+             buttonListPerCharacter[playerIndex].ForEach(x => x.SetActive(true));
                 break;
             case CombatController.State.END_OF_TURN:
                 attackButton.gameObject.SetActive(false);
@@ -112,6 +114,7 @@ public class UI : MonoBehaviour
                 {
 
                     character.gameObject.transform.position = character.originalPosition;
+                    character.gameObject.GetComponent<SpriteRenderer>().color = new Color(0.6f, 0.6f, 0.6f);
                     character.gameObject.GetComponent<ColorLerp>().enabled = false;
                     character.gameObject.GetComponent<LerpPosition>().enabled = false;
                 }
@@ -126,6 +129,7 @@ public class UI : MonoBehaviour
             foreach (Character character in combatController.characters)
             {
                 character.gameObject.transform.position = character.originalPosition;
+                character.gameObject.GetComponent<SpriteRenderer>().color = new Color(0.6f, 0.6f, 0.6f);
                 character.gameObject.GetComponent<ColorLerp>().enabled = false;
                 character.gameObject.GetComponent<LerpPosition>().enabled = false;
 
@@ -154,7 +158,8 @@ public class UI : MonoBehaviour
     {
         Debug.Log("he defendio");
         CombatEvent combatEvent = new CombatEvent();
-        combatEvent.eventType = CombatEvent.EventType.PLAYER_COMMAND;
+        combatController.state = CombatController.State.PLAYER_SELECTING_TARGET;
+        combatEvent.eventType = CombatEvent.EventType.START_DEFENSE;
         combatEvent.playerCommand = CombatEvent.PlayerCommand.DEFEND;
         combatController.eventList.Add(combatEvent);
     }
