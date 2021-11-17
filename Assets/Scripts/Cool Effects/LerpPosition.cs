@@ -5,7 +5,7 @@ using UnityEngine;
 public class LerpPosition : MonoBehaviour
 {
     // Start is called before the first frame update
-    Vector3 InitialPosition;
+   public Vector3 InitialPosition;
    public Vector3 targetPosition;
 
 

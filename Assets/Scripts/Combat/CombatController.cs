@@ -24,8 +24,12 @@ public class CombatController : MonoBehaviour
     [SerializeField]
     List<Turn> currentRound = new List<Turn>();
     public List<CombatEvent> eventList = new List<CombatEvent>();
-   public Turn actTurn = new Turn();
+    [SerializeField]
+    public Turn actTurn = new Turn();
+    [SerializeField]
+    Character characterDebugTurn;
     public Text text;
+    bool victory = false;
     public enum State {
         SELECTING_TURN,
         END_OF_ROUND,
@@ -62,6 +66,7 @@ public class CombatController : MonoBehaviour
                     break;
                 } //end of round
                 actTurn = roundList[0][0];
+                characterDebugTurn = actTurn.character;
                 roundList[0].RemoveAt(0);
                 
 
@@ -70,6 +75,9 @@ public class CombatController : MonoBehaviour
                     combatEvent.eventType = CombatEvent.EventType.PLAYER_COMMAND;
                     eventList.Add(combatEvent);
                     state = State.PLAYER_SELECTING_COMMAND;
+                    actTurn.character.isDefending = false;
+                    playerIndex = actTurn.character.playerIndex;
+                    actTurn.character.currentDefense = actTurn.character.defense;
                 }
                 else {  
                     CombatEvent combatEvent = new CombatEvent();
@@ -79,31 +87,24 @@ public class CombatController : MonoBehaviour
                 }
                 break;
 
-            case State.ENEMY_TURN:
-
-                //      if (processEvent.eventType == CombatEvent.EventType.START_ATTACK) {
-                
+            case State.ENEMY_TURN:                
                 actTurn.character.behaviour.Act(actTurn.character, characters);
                 CombatEvent testEvento = new CombatEvent();
                 testEvento.eventType = CombatEvent.EventType.FINISH_ANIMATION;
                 eventList.Add(testEvento);
                 state = State.ENEMY_ANIMATION;
-          //      }
-
                 break;
             case State.ENEMY_ANIMATION:
-
                 actTurn.character.behaviour.ShowText();
                 text.text = actTurn.character.behaviour.textToShow;
                 StartCoroutine(Vanish());
-
 
 
                 break;            
             case State.PLAYER_SELECTING_COMMAND:
                 if (processEvent.eventType == CombatEvent.EventType.PLAYER_COMMAND)
                 {
-
+                    text.text = "Select a command";
                     
                     switch (processEvent.playerCommand) {
                         case CombatEvent.PlayerCommand.GAMBLE:
@@ -125,9 +126,11 @@ public class CombatController : MonoBehaviour
                 break;
             case State.PLAYER_SELECTING_TARGET:
                 if (processEvent.eventType == CombatEvent.EventType.START_ATTACK) {
+
+                    text.text = "Select a target";
                     if (targetIsConfirmed)
                     {
-                        actTurn.character.behaviour.abilities[0].UseAbility(actTurn.character, processEvent.targets[0]);
+                        actTurn.character.behaviour.abilities[abilityIndex].UseAbility(actTurn.character, processEvent.targets[0]);                        
                         targetIsConfirmed = false;
                         GoToState(State.PLAYER_PERFORMING_ACTION);
                         //adaptarlo a esta estructura
@@ -135,32 +138,24 @@ public class CombatController : MonoBehaviour
                     
                 }
 
+
                 if (processEvent.eventType == CombatEvent.EventType.START_DEFENSE) {
 
-                    actTurn.character.behaviour.abilities[1].UseAbility(actTurn.character);
+                    actTurn.character.behaviour.abilities[abilityIndex].UseAbility(actTurn.character);
                     targetIsConfirmed = false;
                     actTurn.character.currentDefense = (int)((int)actTurn.character.currentDefense * 1.5f);
                     GoToState(State.PLAYER_PERFORMING_ACTION);
                 }
                 break;
             case State.PLAYER_PERFORMING_ACTION:
-                actTurn.character.behaviour.ShowText();
-                GoToState(State.END_OF_TURN);
+                actTurn.character.behaviour.ShowText(abilityIndex);
+                text.text = actTurn.character.behaviour.textToShow;
+                StartCoroutine(Vanish());
+
                 break;
             case State.PLAYER_GAMBLEING:
                 if (processEvent.eventType == CombatEvent.EventType.SELECTGAMBLE)
                     {
-                    switch (processEvent.gambleCommand)
-                    {
-                        case CombatEvent.GambleCommand.GAMBLEBIG:
-                            break;
-                        case CombatEvent.GambleCommand.GAMBLESMALL:
-                            break;
-                        case CombatEvent.GambleCommand.CANCEL:
-                            // todo remove gamble UX
-                            GoToState(State.PLAYER_SELECTING_COMMAND);
-                            break;
-                    }
                 }
                 break;            
             case State.PLAYER_SELECTING_ABILITY:
@@ -179,7 +174,14 @@ public class CombatController : MonoBehaviour
                 break;
 
             case State.END_OF_COMBAT:
-                text.text = "Combat is finished!";
+                if (victory)
+                {
+                    text.text = "you win!";
+                }
+                else
+                {
+                    text.text = "you lose...";
+                }
                 break;
         }
     }
@@ -249,16 +251,11 @@ public class CombatController : MonoBehaviour
             eventList.RemoveAt(eventList.Count - 1);
             ProcessEvent(combatEvent);
         }
-        currentRound = roundList[0];
 
-
-        //todo list para más tarde: arreglar la lógica para poder ver la lista de turnos de manera adecuada
         foreach (Character character in characters) {
             int index = 0;
             if (character.isDead)
             {
-
-
                 roundList[0].RemoveAll(s => s.character.isDead);
                 character.gameObject.SetActive(false);
             }        
@@ -266,32 +263,15 @@ public class CombatController : MonoBehaviour
 
         if(playerCharacters.All(character => character.isDead))
         {
-
-            GoToState(State.END_OF_COMBAT);
-
+            GoToState(State.END_OF_COMBAT);            
         }
 
         if (EnemyCharacters.All(character => character.isDead))
         {
-
-
+            victory = true;
             GoToState(State.END_OF_COMBAT);
-
         }
-
-
-
     }
-
-//create a new function which returns an integer
-    IEnumerator waitUntilTurnCompleted(PlayerBehaviour playerBehaviour) {
-
-        yield return new WaitUntil(() => playerBehaviour.hasTurnCompleted == true);
-
-
-        playerBehaviour.hasTurnCompleted = false;
-    }   
-
 
     void generateRounds() {
         roundController = new RoundController(characters);

@@ -8,7 +8,7 @@ public class Attack : Ability
 
 
     int damage = 0;
-
+    int manaGain = 0;
     
 
     
@@ -39,7 +39,9 @@ public class Attack : Ability
     
     }
     public override void ShowText() {
+        showText = "";
         showText = " " + userName + " dealt " + damage.ToString() + " Damage to " + targetName;
+        Debug.Log("el nuevo texto es: "+ showText);
     }
 
 

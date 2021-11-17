@@ -14,8 +14,8 @@ public class Character : MonoBehaviour
     public int currentAttack = 5;
     public int defense = 5;
     public int currentDefense = 5;
-    public int inteligence = 5;
-    public int currentInteligence = 5;
+    public int intelligence = 5;
+    public int currentIntelligence = 5;
     public int resistance = 5;
     public int currentResistance = 5;
     public int agility = 5;
@@ -38,7 +38,7 @@ public class Character : MonoBehaviour
         currentHP = maxHP;
         currentAttack = attack;
         currentDefense = defense;
-        currentInteligence = inteligence;
+        currentIntelligence = intelligence;
         currentResistance = resistance;
         currentAgility = agility;
         originalPosition = GetComponent<Transform>().position;

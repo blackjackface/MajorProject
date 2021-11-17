@@ -11,6 +11,7 @@ public abstract class Ability : MonoBehaviour
     public string showText = "something is wrong";
     public string userName;
     public string targetName;
+    public int riskFactor = 0;
     public virtual void UseAbility(Character user ,Character target)
     {
         
@@ -18,7 +19,6 @@ public abstract class Ability : MonoBehaviour
     }
     public virtual void UseAbility(Character user)
     {
-
 
     }
     public virtual void UseAbility(Character user ,List<Character> targets) { }
