@@ -10,8 +10,7 @@ public abstract class Ability : MonoBehaviour
     public string abilityName;
     public string showText = "something is wrong";
     public string userName;
-    public string targetName;
-    public int riskFactor = 0;
+    public string targetName;    
     public virtual void UseAbility(Character user ,Character target)
     {
         

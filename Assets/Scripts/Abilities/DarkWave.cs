@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DarkWave : Ability
+public class DarkWave : AbilityRisk
 {
     [SerializeField]
     int damage = 0;

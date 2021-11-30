@@ -30,6 +30,11 @@ public class Character : MonoBehaviour
     public UnityEvent m_MyEvent;
     public bool isDefending = false;
     public Vector3 originalPosition;
+    // es un array que contiene las compatibilidades de elementos donde 'C' es la efectividad base de 100%
+    public char[] ElementCompatibility = new char[8] {'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C' };
+    //TODO: Añadir lista de buffs y debuffs
+    //List<StatModifier> statModifiers = new List<StatModifier>
+
     //La barrita invisible de los turnos funciona de tal manera que se van rellenando
     //a lo largo del tiempo usando principalment el stat de agilidad
     // Start is called before the first frame update
