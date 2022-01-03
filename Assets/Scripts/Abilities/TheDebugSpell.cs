@@ -12,8 +12,7 @@ public class TheDebugSpell : Ability
     }
 
     public override void UseAbility(Character user, Character target)
-    {
-
+    {   
         Debug.Log("you used the Debug Spell");
   //      base.UseAbility(user, target);
     }

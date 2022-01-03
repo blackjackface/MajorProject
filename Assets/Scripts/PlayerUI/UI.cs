@@ -98,11 +98,19 @@ public class UI : MonoBehaviour
                 gambleButton.gameObject.SetActive(true);
                 cancelButton.gameObject.SetActive(false);
                 break;
-            case CombatController.State.SELECTING_TURN:                
+            case CombatController.State.SELECTING_TURN:   
+                cancelButton.gameObject.SetActive(false); 
+                break;            
             case CombatController.State.END_OF_ROUND:              
+                cancelButton.gameObject.SetActive(false);
+                break;
             case CombatController.State.END_OF_COMBAT:             
-            case CombatController.State.ENEMY_TURN:            
-            case CombatController.State.ENEMY_ANIMATION:              
+            case CombatController.State.ENEMY_TURN:
+                cancelButton.gameObject.SetActive(false);
+                break;            
+            case CombatController.State.ENEMY_ANIMATION:
+                cancelButton.gameObject.SetActive(false);
+                break;                         
             case CombatController.State.PLAYER_SELECTING_TARGET:
                 attackButton.gameObject.SetActive(false);
                 defenseButton.gameObject.SetActive(false);
@@ -111,6 +119,9 @@ public class UI : MonoBehaviour
                 int playerIndex = combatController.actTurn.character.playerIndex;
                 buttonListPerCharacter[playerIndex].ForEach(x => x.SetActive(false));
                 break;
+            case CombatController.State.PLAYER_PERFORMING_ACTION:
+                cancelButton.gameObject.SetActive(false);
+                break;        
             case CombatController.State.PLAYER_SELECTING_ABILITY:             
             case CombatController.State.PLAYER_GAMBLEING:
                 playerIndex =  combatController.actTurn.character.playerIndex;
@@ -165,7 +176,7 @@ public class UI : MonoBehaviour
             target = null;
             combatController.targetIsConfirmed = true;
             combatController.eventList.Add(combatEvent);
-            //ejecutar acción y nos movemos al final del turno
+            //ejecutar acciï¿½n y nos movemos al final del turno
         }
     }
 

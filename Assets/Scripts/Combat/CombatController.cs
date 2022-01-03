@@ -202,7 +202,7 @@ public class CombatController : MonoBehaviour
 
     IEnumerator Vanish() {
 
-        yield return new WaitForSecondsRealtime(1f);
+        yield return new WaitForSecondsRealtime(1.7f);
         text.text = "";
         StartTurn();
     }
