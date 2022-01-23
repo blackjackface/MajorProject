@@ -29,9 +29,9 @@ public class UI : MonoBehaviour
             character.playerIndex = index;
             List<GameObject> buttonList = new List<GameObject>();
             if (character.isPlayer && character.behaviour.abilities.Count > 2) {
-                int initialX = 266; //values taken from scene, may change later
-                int initialY = 300;
-                int anotherInitialValueX = 440;
+                int initialX =500; //values taken from scene, may change later
+                int initialY = 400;
+                int anotherInitialValueX = 700;
                 int additionalY = 0;
                 bool isLeft = true;
 
@@ -150,8 +150,10 @@ public class UI : MonoBehaviour
 
                     character.gameObject.transform.position = character.originalPosition;
                     character.gameObject.GetComponent<SpriteRenderer>().color = new Color(0.6f, 0.6f, 0.6f);
-                    character.gameObject.GetComponent<ColorLerp>().enabled = false;
-                    character.gameObject.GetComponent<LerpPosition>().enabled = false;
+                    if (character.gameObject.GetComponent<ColorLerp>() != null)
+                        character.gameObject.GetComponent<ColorLerp>().enabled = false;
+                    if (character.gameObject.GetComponent<ColorLerp>() != null)
+                        character.gameObject.GetComponent<LerpPosition>().enabled = false;
                 }
 
                 characterTarget.gameObject.GetComponent<ColorLerp>().enabled = true;
@@ -165,8 +167,10 @@ public class UI : MonoBehaviour
             {
                 character.gameObject.transform.position = character.originalPosition;
                 character.gameObject.GetComponent<SpriteRenderer>().color = new Color(0.6f, 0.6f, 0.6f);
-                character.gameObject.GetComponent<ColorLerp>().enabled = false;
-                character.gameObject.GetComponent<LerpPosition>().enabled = false;
+                if (character.gameObject.GetComponent<ColorLerp>() != null)
+                    character.gameObject.GetComponent<ColorLerp>().enabled = false;
+                if (character.gameObject.GetComponent<ColorLerp>() != null)
+                    character.gameObject.GetComponent<LerpPosition>().enabled = false;
 
             }
             CombatEvent combatEvent = new CombatEvent();
@@ -211,8 +215,10 @@ public class UI : MonoBehaviour
 
             character.gameObject.transform.position = character.originalPosition;
             character.gameObject.GetComponent<SpriteRenderer>().color = new Color(0.6f, 0.6f, 0.6f);
-            character.gameObject.GetComponent<ColorLerp>().enabled = false;
-            character.gameObject.GetComponent<LerpPosition>().enabled = false;
+            if(character.gameObject.GetComponent<ColorLerp>()!= null)
+              character.gameObject.GetComponent<ColorLerp>().enabled = false;
+            if (character.gameObject.GetComponent<ColorLerp>() != null)
+              character.gameObject.GetComponent<LerpPosition>().enabled = false;
         }
         target = null;
         combatEvent.eventType = CombatEvent.EventType.PLAYER_COMMAND;

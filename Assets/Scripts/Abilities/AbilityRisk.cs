@@ -25,8 +25,49 @@ public class AbilityRisk : Ability
     public bool isAttackMove = true;
     public bool isMagic = false;
     public bool hits = false;
+    [SerializeField]
+    public Color elementColor;
 
 
+    public void colorSelection() {
+        switch (element) {
+            case Element.PHYSICAL:
+                elementColor = Color.grey;
+                break;
+            case Element.FIRE:
+                elementColor = Color.red;
+                break;
+            case Element.WATER:
+                elementColor = Color.blue;
+                break;
+            case Element.EARTH:
+                elementColor = Color.green;
+                break;
+            case Element.WIND:
+                elementColor = Color.gray;
+                break;
+            case Element.THUNDER:
+                elementColor = new Color32(250, 255, 55,255);
+                break;
+            case Element.LIGHT:
+                elementColor = Color.yellow;
+                break;
+            case Element.DARKNESS:
+                elementColor = Color.magenta;
+                break;
+            case Element.ESSENCE:
+                elementColor = Color.white;
+                break;
+            case Element.SUPREME:
+                elementColor = Color.HSVToRGB(255, 255, 0);
+                break;
+
+        }
+
+
+
+
+    }
 
     public void CalculateMultiplier(Character target){
         int elementtoIntPosition = (int)element;

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2956610887359739898}
   - component: {fileID: 2956610887359739897}
   - component: {fileID: 2956610887359739896}
+  - component: {fileID: 3324884258335644922}
   m_Layer: 0
   m_Name: BaseCharacter
   m_TagString: Untagged
@@ -111,6 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf3a6313c35bd92428cb233d985251db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InitialPosition: {x: 0, y: 0, z: 0}
   targetPosition: {x: 0, y: 3.91, z: 0}
 --- !u!114 &2956610887359739897
 MonoBehaviour:
@@ -139,14 +141,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: basicCharacter
+  level: 1
   maxHP: 10
   currentHP: 10
   attack: 5
   currentAttack: 5
   defense: 5
   currentDefense: 5
-  inteligence: 5
-  currentInteligence: 5
+  intelligence: 5
+  currentIntelligence: 5
   resistance: 5
   currentResistance: 5
   agility: 5
@@ -163,3 +166,41 @@ MonoBehaviour:
       m_Calls: []
   isDefending: 0
   originalPosition: {x: 0, y: 0, z: 0}
+  ElementCompatibility: 43004300430043004300430043004300430043004300
+--- !u!114 &3324884258335644922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4486976659566791628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37b67d8750d564547b048e7c973b12c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthLink:
+    targetScript: {fileID: 0}
+    fieldName: 
+  HealthbarPrefab: {fileID: 22400004, guid: e1937e1c6f9ba6c4ba4d36e07d553b6d, type: 3}
+  yOffset: 0.5
+  keepSize: 1
+  scale: 1
+  sizeOffsets: {x: 0, y: 0}
+  DrawOFFDistance: 0
+  drawDistance: 10
+  showHealthInfo: 0
+  healthInfoAlignment: 1
+  healthInfoSize: 10
+  alphaSettings:
+    defaultAlpha: 0.7
+    defaultFadeSpeed: 0.1
+    fullAplpha: 1
+    fullFadeSpeed: 0.1
+    nullAlpha: 0
+    nullFadeSpeed: 0.1
+    onHit:
+      fadeSpeed: 0.1
+      onHitAlpha: 1
+      duration: 1
+  canvas: {fileID: 0}

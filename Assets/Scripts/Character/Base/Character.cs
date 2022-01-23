@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
-public class Character : MonoBehaviour
+public class Character : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public string name = "name";
     public int level = 1;
@@ -25,10 +26,12 @@ public class Character : MonoBehaviour
     public float turnGauge = 0.0f;    
     public bool isPlayer = false;    
     public int playerIndex = -1;    
-    public Behaviour behaviour;    
+    public Behaviour behaviour;
+    public List<Modifier> modifier = new List<Modifier>();
     public UnityEvent m_MyEvent;    
-    public bool isDefending = false; 
-
+    public bool isDefending = false;
+    public bool mouse_over = false;
+    public bool opportunityMode = false;
     public Vector3 originalPosition;
     // es un array que contiene las compatibilidades de elementos donde 'C' es la efectividad base de 100%
     public List<char> ElementCompatibility = new List<char> { 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C' };
@@ -59,5 +62,17 @@ public class Character : MonoBehaviour
     {
         Debug.Log("has pinchao a: " + name);
         m_MyEvent.Invoke();
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        mouse_over = true;
+        Debug.Log("Mouse enter");
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        mouse_over = false;
+        Debug.Log("Mouse exit");
     }
 }

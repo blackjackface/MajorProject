@@ -603,6 +603,38 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5079956371130625155, guid: abe3172c1b4df1c408357f4bc3b0d64b, type: 3}
+      propertyPath: level
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5079956371130625155, guid: abe3172c1b4df1c408357f4bc3b0d64b, type: 3}
+      propertyPath: maxHP
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 5079956371130625155, guid: abe3172c1b4df1c408357f4bc3b0d64b, type: 3}
+      propertyPath: attack
+      value: 33
+      objectReference: {fileID: 0}
+    - target: {fileID: 5079956371130625155, guid: abe3172c1b4df1c408357f4bc3b0d64b, type: 3}
+      propertyPath: agility
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5079956371130625155, guid: abe3172c1b4df1c408357f4bc3b0d64b, type: 3}
+      propertyPath: defense
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5079956371130625155, guid: abe3172c1b4df1c408357f4bc3b0d64b, type: 3}
+      propertyPath: currentHP
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5079956371130625155, guid: abe3172c1b4df1c408357f4bc3b0d64b, type: 3}
+      propertyPath: resistance
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5079956371130625155, guid: abe3172c1b4df1c408357f4bc3b0d64b, type: 3}
+      propertyPath: intelligence
+      value: 33
+      objectReference: {fileID: 0}
     - target: {fileID: 5853744895724523657, guid: abe3172c1b4df1c408357f4bc3b0d64b, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -653,12 +685,81 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: abe3172c1b4df1c408357f4bc3b0d64b, type: 3}
+--- !u!1 &845697183 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5853744895724523703, guid: abe3172c1b4df1c408357f4bc3b0d64b, type: 3}
+  m_PrefabInstance: {fileID: 845697182}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &845697184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 845697183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2336f62a4b2be243b985330c05eea6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnHealthDecrease:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHealthIncrease:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHalthChange:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHealthRestored:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &845697185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 845697183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37b67d8750d564547b048e7c973b12c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthLink:
+    targetScript: {fileID: 1101367226}
+    fieldName: currentHP
+  HealthbarPrefab: {fileID: 22400004, guid: e1937e1c6f9ba6c4ba4d36e07d553b6d, type: 3}
+  yOffset: 0.5
+  keepSize: 1
+  scale: 1
+  sizeOffsets: {x: 0, y: 0}
+  DrawOFFDistance: 0
+  drawDistance: 10
+  showHealthInfo: 0
+  healthInfoAlignment: 1
+  healthInfoSize: 10
+  alphaSettings:
+    defaultAlpha: 0.7
+    defaultFadeSpeed: 0.1
+    fullAplpha: 1
+    fullFadeSpeed: 0.1
+    nullAlpha: 0
+    nullFadeSpeed: 0.1
+    onHit:
+      fadeSpeed: 0.1
+      onHitAlpha: 1
+      duration: 1
+  canvas: {fileID: 0}
 --- !u!114 &1101367226 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5079956371130625155, guid: abe3172c1b4df1c408357f4bc3b0d64b, type: 3}
   m_PrefabInstance: {fileID: 845697182}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 845697183}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 273c6bf5271fd1a4fbe42009ecd5c5f6, type: 3}
@@ -1291,7 +1392,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2908869085146015075, guid: 8e46a7807a6297b46a0343bf2b1e78ff, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.061
+      value: -2.591
       objectReference: {fileID: 0}
     - target: {fileID: 2908869085146015075, guid: 8e46a7807a6297b46a0343bf2b1e78ff, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1327,7 +1428,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4547911686017636713, guid: 8e46a7807a6297b46a0343bf2b1e78ff, type: 3}
       propertyPath: level
-      value: 5
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4547911686017636713, guid: 8e46a7807a6297b46a0343bf2b1e78ff, type: 3}
+      propertyPath: maxHP
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 4547911686017636713, guid: 8e46a7807a6297b46a0343bf2b1e78ff, type: 3}
+      propertyPath: initiative
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4547911686017636713, guid: 8e46a7807a6297b46a0343bf2b1e78ff, type: 3}
       propertyPath: ElementCompatibility.Array.size

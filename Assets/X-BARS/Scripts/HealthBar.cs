@@ -56,8 +56,8 @@ public class HealthBar : MonoBehaviour {
 		}
 		
 		thisT = this.transform;
-        if (canvas.transform.FindChild("HealthbarRoot") != null)
-            healthbarRoot = canvas.transform.FindChild("HealthbarRoot").gameObject;
+        if (canvas.transform.Find("HealthbarRoot") != null)
+            healthbarRoot = canvas.transform.Find("HealthbarRoot").gameObject;
         else
             healthbarRoot = new GameObject("HealthbarRoot", typeof(RectTransform), typeof(HealthbarRoot));
         healthbarRoot.transform.SetParent(canvas.transform, false);

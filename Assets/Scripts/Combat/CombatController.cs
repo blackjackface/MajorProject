@@ -41,6 +41,7 @@ public class CombatController : MonoBehaviour
         PLAYER_SELECTING_ABILITY,
         PLAYER_PERFORMING_ACTION,
         PLAYER_GAMBLEING,
+        COMBAT_CHECK_ALIVE,
         END_OF_TURN
     }
     public State state;
@@ -68,8 +69,16 @@ public class CombatController : MonoBehaviour
                 actTurn = roundList[0][0];
                 characterDebugTurn = actTurn.character;
                 roundList[0].RemoveAt(0);
-                
+                foreach (Modifier modifier in actTurn.character.modifier)
+                {
+                    modifier.OnTurnBegin();
+                    modifier.turnsExpiration--;
+                    if (modifier.turnsExpiration == 0) {
 
+                        modifier.isExpired = true;                    
+                    }                    
+                }
+                actTurn.character.modifier.RemoveAll(s => s.isExpired);
                 if (actTurn.character.isPlayer) {
                     CombatEvent combatEvent = new CombatEvent();
                     combatEvent.eventType = CombatEvent.EventType.PLAYER_COMMAND;
@@ -97,8 +106,12 @@ public class CombatController : MonoBehaviour
             case State.ENEMY_ANIMATION:
                 actTurn.character.behaviour.ShowText();
                 text.text = actTurn.character.behaviour.textToShow;
-                StartCoroutine(Vanish());
 
+                StartCoroutine(Vanish());
+                foreach (Modifier modifier in actTurn.character.modifier)
+                {
+                    modifier.OnTurnEnd();
+                }
 
                 break;            
             case State.PLAYER_SELECTING_COMMAND:
@@ -134,8 +147,7 @@ public class CombatController : MonoBehaviour
                         targetIsConfirmed = false;
                         GoToState(State.PLAYER_PERFORMING_ACTION);
                         //adaptarlo a esta estructura
-                    }
-                    
+                    }                    
                 }
 
 
@@ -151,7 +163,10 @@ public class CombatController : MonoBehaviour
                 actTurn.character.behaviour.ShowText(abilityIndex);
                 text.text = actTurn.character.behaviour.textToShow;
                 StartCoroutine(Vanish());
-
+                foreach (Modifier modifier in actTurn.character.modifier)
+                {
+                    modifier.OnTurnEnd();
+                }
                 break;
             case State.PLAYER_GAMBLEING:
                 if (processEvent.eventType == CombatEvent.EventType.SELECTGAMBLE)
@@ -160,7 +175,33 @@ public class CombatController : MonoBehaviour
                 break;            
             case State.PLAYER_SELECTING_ABILITY:
                 break;
+            case State.COMBAT_CHECK_ALIVE:
+                foreach (Character character in characters)
+                {
+                    if (character.isDead)
+                    {
+                        roundList[0].RemoveAll(s => s.character.isDead);
+                        character.gameObject.SetActive(false);
+                    }
+                }
 
+                if (playerCharacters.All(character => character.isDead))
+                {
+                    GoToState(State.END_OF_COMBAT);
+                }
+                else if (EnemyCharacters.All(character => character.isDead))
+                {
+                    victory = true;
+                    GoToState(State.END_OF_COMBAT);
+                }
+                else {
+
+                    StartTurn();
+                
+                }
+
+
+                break;
 
             case State.END_OF_TURN:
                 GoToState(State.SELECTING_TURN);
@@ -204,7 +245,7 @@ public class CombatController : MonoBehaviour
 
         yield return new WaitForSecondsRealtime(1.7f);
         text.text = "";
-        StartTurn();
+        GoToState(State.COMBAT_CHECK_ALIVE);
     }
 
     void Start()
@@ -252,33 +293,14 @@ public class CombatController : MonoBehaviour
             ProcessEvent(combatEvent);
         }
 
-        foreach (Character character in characters) {
-            int index = 0;
-            if (character.isDead)
-            {
-                roundList[0].RemoveAll(s => s.character.isDead);
-                character.gameObject.SetActive(false);
-            }        
-        }
 
-        if(playerCharacters.All(character => character.isDead))
-        {
-            GoToState(State.END_OF_COMBAT);            
-        }
-
-        if (EnemyCharacters.All(character => character.isDead))
-        {
-            victory = true;
-            GoToState(State.END_OF_COMBAT);
-        }
     }
 
     void generateRounds() {
+
         roundController = new RoundController(characters);
         roundController.CalculateTurn(characters);
         roundList.Add(roundController.turns);
-        
-       // CombatAct();
     }
 
     // Update is called once per frame

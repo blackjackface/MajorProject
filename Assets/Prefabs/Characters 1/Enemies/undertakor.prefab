@@ -142,29 +142,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: undertakor
   level: 15
-  maxHP: 566
+  maxHP: 90
   currentHP: 10
-  attack: 44
+  attack: 17
   currentAttack: 5
-  defense: 35
+  defense: 14
   currentDefense: 5
-  intelligence: 42
+  intelligence: 14
   currentIntelligence: 5
-  resistance: 35
+  resistance: 9
   currentResistance: 5
-  agility: 15
+  agility: 8
   currentAgility: 5
   mana: 0
-  initiative: 3
+  initiative: 1.2
   isDead: 0
   turnGauge: 0
   isPlayer: 0
   playerIndex: -1
   behaviour: {fileID: 8032271676472826741}
+  modifier: []
   m_MyEvent:
     m_PersistentCalls:
       m_Calls: []
   isDefending: 0
+  mouse_over: 0
+  opportunityMode: 0
   originalPosition: {x: 0, y: 0, z: 0}
   ElementCompatibility: 43004300430043004300430043004300430043004300
 --- !u!114 &8032271676472826741

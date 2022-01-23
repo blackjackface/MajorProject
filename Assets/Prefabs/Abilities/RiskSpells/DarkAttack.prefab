@@ -54,4 +54,6 @@ MonoBehaviour:
   isAttackMove: 1
   isMagic: 0
   hits: 0
+  elementColor: {r: 0.2924528, g: 0, b: 0.23329154, a: 0}
   baseDamage: 18
+  popUpText: {fileID: 2673144227410131628, guid: 978233bfb8f3b8540ae602d0cdda313b, type: 3}

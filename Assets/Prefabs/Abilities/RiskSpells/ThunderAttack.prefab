@@ -44,14 +44,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityName: Thunder Stomp
-  showText: something is wrong
-  userName: 
-  targetName: 
+  showText: ' basicCharacter used ThunderAttack dealt 31 damage to undertakor'
+  userName: basicCharacter
+  targetName: undertakor
   element: 6
   multiplier: 1
   riskFactor: 65
   manaCost: 8
   isAttackMove: 1
   isMagic: 1
-  hits: 0
+  hits: 1
+  elementColor: {r: 0.98039216, g: 1, b: 0.21568628, a: 1}
   baseDamage: 18
+  popUpText: {fileID: 2673144227410131628, guid: 978233bfb8f3b8540ae602d0cdda313b, type: 3}
