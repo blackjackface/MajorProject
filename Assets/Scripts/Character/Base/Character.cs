@@ -27,7 +27,7 @@ public class Character : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     public bool isPlayer = false;    
     public int playerIndex = -1;    
     public Behaviour behaviour;
-    public List<Modifier> modifier = new List<Modifier>();
+    public List<Modifier> modifiers = new List<Modifier>();
     public UnityEvent m_MyEvent;    
     public bool isDefending = false;
     public bool mouse_over = false;

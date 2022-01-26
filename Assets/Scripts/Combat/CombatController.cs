@@ -10,7 +10,7 @@ public class CombatController : MonoBehaviour
    public List<Character> characters = new List<Character>();
     //A round is a list of turns, so a list of a list of turns should make sense
     [SerializeField]
-    List<List<Turn>> roundList = new List<List<Turn>>();
+    public List<List<Turn>> roundList = new List<List<Turn>>();
     RoundController roundController;
     public List<Character> players = new List<Character>();
     [SerializeField]
@@ -28,6 +28,8 @@ public class CombatController : MonoBehaviour
     public Turn actTurn = new Turn();
     [SerializeField]
     Character characterDebugTurn;
+    [SerializeField]
+    
     public Text text;
     bool victory = false;
     public enum State {
@@ -66,10 +68,11 @@ public class CombatController : MonoBehaviour
                     GoToState(State.END_OF_ROUND);                 
                     break;
                 } //end of round
+
                 actTurn = roundList[0][0];
                 characterDebugTurn = actTurn.character;
                 roundList[0].RemoveAt(0);
-                foreach (Modifier modifier in actTurn.character.modifier)
+                foreach (Modifier modifier in actTurn.character.modifiers)
                 {
                     modifier.OnTurnBegin();
                     modifier.turnsExpiration--;
@@ -78,7 +81,7 @@ public class CombatController : MonoBehaviour
                         modifier.isExpired = true;                    
                     }                    
                 }
-                actTurn.character.modifier.RemoveAll(s => s.isExpired);
+                actTurn.character.modifiers.RemoveAll(s => s.isExpired);
                 if (actTurn.character.isPlayer) {
                     CombatEvent combatEvent = new CombatEvent();
                     combatEvent.eventType = CombatEvent.EventType.PLAYER_COMMAND;
@@ -108,10 +111,6 @@ public class CombatController : MonoBehaviour
                 text.text = actTurn.character.behaviour.textToShow;
 
                 StartCoroutine(Vanish());
-                foreach (Modifier modifier in actTurn.character.modifier)
-                {
-                    modifier.OnTurnEnd();
-                }
 
                 break;            
             case State.PLAYER_SELECTING_COMMAND:
@@ -155,7 +154,7 @@ public class CombatController : MonoBehaviour
 
                     actTurn.character.behaviour.abilities[abilityIndex].UseAbility(actTurn.character);
                     targetIsConfirmed = false;
-                    actTurn.character.currentDefense = (int)((int)actTurn.character.currentDefense * 1.5f);
+                    actTurn.character.currentDefense = (int)(actTurn.character.currentDefense * 1.5f);
                     GoToState(State.PLAYER_PERFORMING_ACTION);
                 }
                 break;
@@ -163,10 +162,7 @@ public class CombatController : MonoBehaviour
                 actTurn.character.behaviour.ShowText(abilityIndex);
                 text.text = actTurn.character.behaviour.textToShow;
                 StartCoroutine(Vanish());
-                foreach (Modifier modifier in actTurn.character.modifier)
-                {
-                    modifier.OnTurnEnd();
-                }
+
                 break;
             case State.PLAYER_GAMBLEING:
                 if (processEvent.eventType == CombatEvent.EventType.SELECTGAMBLE)
@@ -196,14 +192,29 @@ public class CombatController : MonoBehaviour
                 }
                 else {
 
+                    foreach (Modifier modifier in actTurn.character.modifiers)
+                    {
+                        modifier.OnTurnEnd();
+                    }
+                    cleanse();
+                    recalculateStats();
                     StartTurn();
                 
                 }
 
 
-                break;
+                break; 
 
             case State.END_OF_TURN:
+
+
+                foreach (Modifier modifier in actTurn.character.modifiers)
+                {
+                    modifier.OnTurnEnd();
+                }
+                cleanse();
+                recalculateStats();
+
                 GoToState(State.SELECTING_TURN);
                 break;
 
@@ -228,7 +239,36 @@ public class CombatController : MonoBehaviour
     }
 
 
-  
+
+
+
+    void cleanse() {
+        foreach (Character character in characters) {            
+            character.currentAttack = character.attack;
+            character.currentDefense = character.defense;
+            character.currentIntelligence = character.intelligence;
+            character.currentResistance = character.resistance;
+            character.currentAgility = character.agility;
+        }        
+    }
+
+    void recalculateStats() {
+        foreach (Character character in characters) {
+            if(character.modifiers.Count != 0)
+            foreach (Modifier modifier in character.modifiers) {
+                modifier.AddStatCalculation(character);
+                modifier.MultiplyStatCalculation(character);
+            }
+        
+        
+        }
+    
+    
+    
+    
+    }
+
+
     public void ChangeState() {
         int index = 0;
         index = (int) state;

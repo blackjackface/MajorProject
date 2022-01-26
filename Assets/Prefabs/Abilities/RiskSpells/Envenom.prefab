@@ -1,0 +1,92 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3864137313520695775
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2216433855104967809}
+  - component: {fileID: 3303883705401926044}
+  - component: {fileID: 2573369730821161145}
+  m_Layer: 0
+  m_Name: Envenom
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2216433855104967809
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3864137313520695775}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.8433137, y: 1.7985306, z: 0.65630776}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3303883705401926044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3864137313520695775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4273fbe2c59104f439396cb119b57d1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxTurnsExpiration: 2
+  maxAttackExpiration: -1
+  turnsExpiration: -1
+  roundsExpiration: -1
+  attackExpiration: -1
+  isExpired: 1
+  additionalAttack: -3
+  additionalDefense: -2
+  additionalIntelligence: 0
+  additionalResistance: 0
+  additionalAgility: 0
+  attackMultiplier: 0.9
+  defenseMultiplier: 0.9
+  intelligenceMultiplier: 1
+  resistanceMultiplier: 1
+  agilityMultiplier: 1
+  initiativeMultiplier: 1
+  modifierName: corrose
+  description: 
+--- !u!114 &2573369730821161145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3864137313520695775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4d27a1efc5b89446abcd08eea3488c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityName: envenom
+  showText: ' player 2 used envenom dealt 15 damage to undertakor 2'
+  userName: player 2
+  targetName: undertakor 2
+  manaCost: 0
+  element: 4
+  multiplier: 0.8
+  riskFactor: 11
+  isAttackMove: 1
+  isMagic: 0
+  hits: 1
+  elementColor: {r: 0, g: 1, b: 0, a: 1}
+  baseDamage: 11
+  modifier: {fileID: 3303883705401926044}
+  popUpText: {fileID: 2673144227410131628, guid: 978233bfb8f3b8540ae602d0cdda313b, type: 3}

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ public class GeneralOffensiveAbility : AbilityRisk
     int damage = 0;
     int currentRiskFactor;
    
-    Modifier modifier;
+    public Modifier modifier;
     public GameObject popUpText;
 
     public override void UseAbility(Character user, Character target)
@@ -34,14 +35,21 @@ public class GeneralOffensiveAbility : AbilityRisk
         int randomDice = Random.Range(1, 100);
         if (randomDice < currentRiskFactor)
         {
-            if (modifier != null) {
-                target.modifier.Add(modifier);            
-            }
+
             hits = false;
             target.mana += manaCost;
         }
         else
         {
+            if (modifier != null)
+            {
+                Modifier addModifier = modifier;
+                if (target.modifiers.Contains(modifier)) {
+                    target.modifiers.Remove(modifier);
+
+                }
+                target.modifiers.Add(addModifier);
+            }
             hits = true;
             target.currentHP -= damage;
         }
@@ -62,11 +70,11 @@ public class GeneralOffensiveAbility : AbilityRisk
         showText = "";
         if (hits)
         {
-            showText = " " + userName +" used "+ this.name + " dealt " + damage.ToString() + " damage to " + targetName;
+            showText = " " + userName +" used "+ abilityName + " dealt " + damage.ToString() + " damage to " + targetName;
         }
         else 
         {
-            showText =" "+ this.name + " missed and gave "+ manaCost + " mana to " + targetName;
+            showText =" "+ abilityName + " missed and gave "+ manaCost + " mana to " + targetName;
         }
         Debug.Log("el nuevo texto es: " + showText);
     }

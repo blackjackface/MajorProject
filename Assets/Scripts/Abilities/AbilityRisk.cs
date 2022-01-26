@@ -21,7 +21,7 @@ public class AbilityRisk : Ability
     public Element element = Element.NONE;
     public float multiplier = 1;
     public int riskFactor = 0;
-    public int manaCost = 0;
+
     public bool isAttackMove = true;
     public bool isMagic = false;
     public bool hits = false;

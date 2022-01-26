@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Turn : MonoBehaviour
-{
+public class Turn
+{  
+
+
    public Character character;
    public bool isPlayer = false;
 

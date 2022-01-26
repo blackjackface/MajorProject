@@ -10,12 +10,20 @@ public class UI : MonoBehaviour
     public Button defenseButton;
     public Button gambleButton;
     public Button cancelButton;
-    
+    [SerializeField]
+    List<Text> turnListText = new List<Text>();
     public Character target;
+    [SerializeField]
     List<List<GameObject>> buttonListPerCharacter = new List<List<GameObject>>(); 
     bool targetConfirmed = false;
     public GameObject buttonPrefab;
     public Canvas canvas;
+    [SerializeField]
+    AudioSource buttonPressClickSound;
+    [SerializeField]
+    AudioClip playSound;
+    [SerializeField]
+    Text referenceText;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,7 +39,7 @@ public class UI : MonoBehaviour
             if (character.isPlayer && character.behaviour.abilities.Count > 2) {
                 int initialX =500; //values taken from scene, may change later
                 int initialY = 400;
-                int anotherInitialValueX = 700;
+                int anotherInitialValueX = 800;
                 int additionalY = 0;
                 bool isLeft = true;
 
@@ -43,7 +51,7 @@ public class UI : MonoBehaviour
                     } else {
                     createdButton = ButtonConstructor(new Vector3(anotherInitialValueX, initialY + additionalY, 0), 
                         character.behaviour.abilities[i].abilityName, this , i);
-                        additionalY -= 28;
+                        additionalY -= 70;
                     }
                     createdButton.gameObject.SetActive(false);
                     buttonList.Add(createdButton);
@@ -73,7 +81,15 @@ public class UI : MonoBehaviour
         createdButton.GetComponent<RectTransform>().SetParent(canvas.transform);
         createdButton.GetComponentInChildren<Text>().text = text;
         createdButton.GetComponent<Button>().onClick.AddListener(() => ui.UseAbilitywithIndex(index));
+        createdButton.GetComponent<Button>().onClick.AddListener(() => ui.PlaySound());
+        createdButton.transform.localScale = new Vector3(0.5f, 0.5f, 1.0f);
         return createdButton;
+    }
+
+    void PlaySound() {
+        float randomNumber = Random.Range(1f, 1.1f);
+        buttonPressClickSound.pitch = randomNumber;
+        buttonPressClickSound.PlayOneShot(playSound);
     }
 
     void UseAbilitywithIndex(int index) {
@@ -87,21 +103,28 @@ public class UI : MonoBehaviour
         //todo ir al combat controller y a la hora de seleccionar target se usa susodicha habilidad.
     }
 
-    // Update is called once per frame
+    // Updates calls the combat controller State and changes the UI depending which phase it is.    
     void Update()
     {
+        int playerIndex = combatController.actTurn.character.playerIndex;
         switch (combatController.state)
         {
             case CombatController.State.PLAYER_SELECTING_COMMAND:
+
                 attackButton.gameObject.SetActive(true);
                 defenseButton.gameObject.SetActive(true);
                 gambleButton.gameObject.SetActive(true);
+                playerIndex = combatController.actTurn.character.playerIndex;
+                buttonListPerCharacter[playerIndex].ForEach(x => x.SetActive(false));
                 cancelButton.gameObject.SetActive(false);
                 break;
             case CombatController.State.SELECTING_TURN:   
-                cancelButton.gameObject.SetActive(false); 
+                cancelButton.gameObject.SetActive(false);
+                UpdateTurnListText();
+
                 break;            
-            case CombatController.State.END_OF_ROUND:              
+            case CombatController.State.END_OF_ROUND:
+                 UpdateTurnListText();
                 cancelButton.gameObject.SetActive(false);
                 break;
             case CombatController.State.END_OF_COMBAT:             
@@ -116,16 +139,34 @@ public class UI : MonoBehaviour
                 defenseButton.gameObject.SetActive(false);
                 gambleButton.gameObject.SetActive(false);
                 cancelButton.gameObject.SetActive(true);
-                int playerIndex = combatController.actTurn.character.playerIndex;
                 buttonListPerCharacter[playerIndex].ForEach(x => x.SetActive(false));
                 break;
             case CombatController.State.PLAYER_PERFORMING_ACTION:
                 cancelButton.gameObject.SetActive(false);
                 break;        
-            case CombatController.State.PLAYER_SELECTING_ABILITY:             
+            case CombatController.State.PLAYER_SELECTING_ABILITY:
+
             case CombatController.State.PLAYER_GAMBLEING:
                 playerIndex =  combatController.actTurn.character.playerIndex;
                 buttonListPerCharacter[playerIndex].ForEach(x => x.SetActive(true));
+                int i = 0;
+                foreach (Ability ability in combatController.actTurn.character.behaviour.abilities) {
+
+                    if (i>1)
+                    {
+                        if (combatController.actTurn.character.mana < ability.manaCost)
+                        {
+                            buttonListPerCharacter[playerIndex][i - 2].GetComponentInChildren<Text>().color = new Color32(255, 255, 255, 155);
+                            buttonListPerCharacter[playerIndex][i - 2].GetComponent<Button>().interactable = false;
+                        }
+                        else {
+                            buttonListPerCharacter[playerIndex][i - 2].GetComponentInChildren<Text>().color = new Color32(255, 255, 255, 255);
+                            buttonListPerCharacter[playerIndex][i - 2].GetComponent<Button>().interactable = true;
+
+                        }
+                    }
+                    i++;
+                }
                 cancelButton.gameObject.SetActive(true);
                 break;
             case CombatController.State.END_OF_TURN:
@@ -133,6 +174,7 @@ public class UI : MonoBehaviour
                 defenseButton.gameObject.SetActive(false);
                 gambleButton.gameObject.SetActive(false);
                 cancelButton.gameObject.SetActive(false);
+                UpdateTurnListText();
                 break;
         }
 
@@ -183,10 +225,43 @@ public class UI : MonoBehaviour
             //ejecutar acci�n y nos movemos al final del turno
         }
     }
+    public void UpdateTurnListText()
+    {
+        foreach (Text text in turnListText) {
+
+            Destroy(text.gameObject);
+        
+        
+        }
+        turnListText.Clear();
+        int heigh = 960;
+        foreach (Turn turn in combatController.roundList[0])
+        {
+
+            GameObject gameObjectText = new GameObject();
+            string characterName = turn.character.name;
+           
+            Text characterNameText = gameObjectText.AddComponent<Text>();
+
+            characterNameText.GetComponent<Text>().font = referenceText.font;
+            characterNameText.GetComponent<Text>().fontSize = referenceText.fontSize;
+            characterNameText.transform.localScale = new Vector3(2.5f, 2.5f, 2.5f);
+
+            characterNameText.text = characterName;
+            characterNameText.GetComponent<RectTransform>().position = new Vector3(960, heigh, 0);
+            characterNameText.GetComponent<RectTransform>().SetParent(canvas.transform);
+            turnListText.Add(characterNameText);
+            heigh -= 25;
+        }
+        if(turnListText.Count != 0)
+        turnListText[0].color = Color.yellow;
+    }
+
 
     void AttackButtonPress() {
         Debug.Log("he atacao");
         combatController.abilityIndex = 0;
+        PlaySound();
         combatController.state = CombatController.State.PLAYER_SELECTING_TARGET;
         CombatEvent combatEvent = new CombatEvent();
         combatEvent.eventType = CombatEvent.EventType.START_ATTACK;
@@ -197,6 +272,7 @@ public class UI : MonoBehaviour
     void DefenseButtonPress()
     {
         Debug.Log("he defendio");
+        PlaySound();
         combatController.abilityIndex = 1;
         CombatEvent combatEvent = new CombatEvent();
         combatController.state = CombatController.State.PLAYER_SELECTING_TARGET;
@@ -220,6 +296,7 @@ public class UI : MonoBehaviour
             if (character.gameObject.GetComponent<ColorLerp>() != null)
               character.gameObject.GetComponent<LerpPosition>().enabled = false;
         }
+        PlaySound();
         target = null;
         combatEvent.eventType = CombatEvent.EventType.PLAYER_COMMAND;
         combatEvent.playerCommand = CombatEvent.PlayerCommand.DEFEND;
@@ -228,8 +305,8 @@ public class UI : MonoBehaviour
     void GambleButtonPress() {
         Debug.Log("me la he jugado");
         combatController.state = CombatController.State.PLAYER_GAMBLEING;
-    
-    
+        PlaySound();
+
     }
 
 }
