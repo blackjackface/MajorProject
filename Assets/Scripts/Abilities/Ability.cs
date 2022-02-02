@@ -9,9 +9,15 @@ public abstract class Ability : MonoBehaviour
     //this is a regular monoTargetSkill
     public string abilityName;
     public string showText = "something is wrong";
+    public string description = "";
     public string userName;
     public string targetName;
     public int manaCost = 0;
+    public float gaugeFillValue;
+    public Vector3 targetPosition;
+    public Vector3 offsetdistance;
+    public GameObject referenceText;
+    public GameObject particleEffects;
     public virtual void UseAbility(Character user ,Character target)
     {
         
@@ -23,5 +29,21 @@ public abstract class Ability : MonoBehaviour
     }
     public virtual void UseAbility(Character user ,List<Character> targets) { }
 
+    public virtual string FillDescription() {
+
+        return "";
+    }
     public virtual void ShowText() { }
+
+    public virtual void SummonParticleEffects() {
+
+
+        if (particleEffects != null)
+        {
+            GameObject particles = particleEffects;
+            Instantiate(particles, targetPosition + offsetdistance,particleEffects.transform.localRotation);
+        }
+        
+    }
+
 }

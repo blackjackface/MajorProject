@@ -44,3 +44,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityName: Attack
+  showText: ' Undertakor A dealt 10 Damage to Player B'
+  description: Attacks target Character
+  userName: Undertakor A
+  targetName: Player B
+  manaCost: 0
+  gaugeFillValue: 0
+  referenceText: {fileID: 0}

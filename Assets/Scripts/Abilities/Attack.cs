@@ -22,9 +22,9 @@ public class Attack : Ability
         }
 
         target.currentHP -= damage;
-        userName = user.name;
-        targetName = target.name;
-        Debug.Log(" " +  user.name + " dealt " + damage.ToString() + " Damage to " + target.name);
+        userName = user.charactername;
+        targetName = target.charactername;
+        Debug.Log(" " +  user.charactername + " dealt " + damage.ToString() + " Damage to " + target.charactername);
         if (target.currentHP <= 0) {
             target.isDead = true;
         }
@@ -44,5 +44,9 @@ public class Attack : Ability
         Debug.Log("el nuevo texto es: "+ showText);
     }
 
+    public override string FillDescription()
+    {
+        return "deals regular damage to enemies, no risk involved";
+    }
 
 }

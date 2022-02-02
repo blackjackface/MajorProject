@@ -44,3 +44,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityName: Defend
+  showText: 'Undertakor A defends, gaining: 10 mana!'
+  description: Defend itself and gains mana
+  userName: Undertakor A
+  targetName: 
+  manaCost: 0
+  gaugeFillValue: 0
+  referenceText: {fileID: 0}

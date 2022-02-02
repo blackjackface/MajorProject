@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using UnityEngine.UI;
 
 public class CombatController : MonoBehaviour
 {
-   public List<Character> characters = new List<Character>();
+    public List<Character> characters = new List<Character>();
     //A round is a list of turns, so a list of a list of turns should make sense
     [SerializeField]
     public List<List<Turn>> roundList = new List<List<Turn>>();
@@ -28,10 +29,10 @@ public class CombatController : MonoBehaviour
     public Turn actTurn = new Turn();
     [SerializeField]
     Character characterDebugTurn;
-    [SerializeField]
-    
+    [SerializeField]    
     public Text text;
     bool victory = false;
+    List<TimeEvent> timeEvents = new List<TimeEvent>();
     public enum State {
         SELECTING_TURN,
         END_OF_ROUND,
@@ -43,18 +44,25 @@ public class CombatController : MonoBehaviour
         PLAYER_SELECTING_ABILITY,
         PLAYER_PERFORMING_ACTION,
         PLAYER_GAMBLEING,
+        SHOWING_TURBO_MODE,
         COMBAT_CHECK_ALIVE,
         END_OF_TURN
     }
+
+    public class TimeEvent {
+        public CombatEvent combatEvent;
+        public DateTime time;
+        public bool done = false;
+        public TimeEvent(CombatEvent nextCombatEvent, Double timeToWait) {
+            combatEvent = nextCombatEvent;
+            time = DateTime.Now.AddSeconds(timeToWait);
+
+        }
+
+    }
+
     public State state;
     void ProcessEvent(CombatEvent processEvent) {
-
-        /*     if (processEvent.eventType == CombatEvent.EventType.START_COMBAT) {
-                 state = State.SELECTING_TURN;
-
-             }*/
-
-
 
         switch (state)
         {
@@ -71,6 +79,7 @@ public class CombatController : MonoBehaviour
 
                 actTurn = roundList[0][0];
                 characterDebugTurn = actTurn.character;
+
                 roundList[0].RemoveAt(0);
                 foreach (Modifier modifier in actTurn.character.modifiers)
                 {
@@ -82,7 +91,15 @@ public class CombatController : MonoBehaviour
                     }                    
                 }
                 actTurn.character.modifiers.RemoveAll(s => s.isExpired);
+                if (actTurn.character.opportunityGauge >= actTurn.character.maxOpportunityGaugeBar)
+                {
+                    actTurn.character.opportunityGauge -= actTurn.character.maxOpportunityGaugeBar;
+                    actTurn.character.opportunityMode = true;
+                    actTurn.character.currentOpportunityTurn = actTurn.character.maxTurnsOpportunity;
+                    text.text = actTurn.character.charactername + " has entered into opportunity Mode";
+                }
                 if (actTurn.character.isPlayer) {
+
                     CombatEvent combatEvent = new CombatEvent();
                     combatEvent.eventType = CombatEvent.EventType.PLAYER_COMMAND;
                     eventList.Add(combatEvent);
@@ -91,12 +108,32 @@ public class CombatController : MonoBehaviour
                     playerIndex = actTurn.character.playerIndex;
                     actTurn.character.currentDefense = actTurn.character.defense;
                 }
-                else {  
+                else {
+
                     CombatEvent combatEvent = new CombatEvent();
                     combatEvent.eventType = CombatEvent.EventType.START_ATTACK;
                     eventList.Add(combatEvent);
+
                     state = State.ENEMY_TURN; 
                 }
+/*                if (actTurn.character.opportunityGauge >= actTurn.character.maxOpportunityGaugeBar)
+                {
+                    actTurn.character.opportunityGauge -= actTurn.character.maxOpportunityGaugeBar;
+                    actTurn.character.opportunityMode = true;
+                    actTurn.character.currentOpportunityTurn = actTurn.character.maxTurnsOpportunity;
+                    text.text = actTurn.character.charactername + " has entered into opportunity Mode";
+                    state = State.SHOWING_TURBO_MODE;
+                    TimeEvent timeEvent = new TimeEvent(algo,algo, 1.7f);
+                    timeEvents.add(timeEvent);
+                    ShowMessage(string loquesea);
+                }
+                break;
+            case State.SHOWING_TURBO_MODE:
+            if(processEvent == algoalgo){
+                HideMessage();
+                state = nextState();
+                }
+*/
                 break;
 
             case State.ENEMY_TURN:                
@@ -109,7 +146,7 @@ public class CombatController : MonoBehaviour
             case State.ENEMY_ANIMATION:
                 actTurn.character.behaviour.ShowText();
                 text.text = actTurn.character.behaviour.textToShow;
-
+                DeplenishOpportunityMode();
                 StartCoroutine(Vanish());
 
                 break;            
@@ -161,6 +198,7 @@ public class CombatController : MonoBehaviour
             case State.PLAYER_PERFORMING_ACTION:
                 actTurn.character.behaviour.ShowText(abilityIndex);
                 text.text = actTurn.character.behaviour.textToShow;
+                DeplenishOpportunityMode();
                 StartCoroutine(Vanish());
 
                 break;
@@ -198,6 +236,7 @@ public class CombatController : MonoBehaviour
                     }
                     cleanse();
                     recalculateStats();
+                    
                     StartTurn();
                 
                 }
@@ -241,7 +280,15 @@ public class CombatController : MonoBehaviour
 
 
 
-
+    void DeplenishOpportunityMode() {
+        if (actTurn.character.opportunityMode)
+        {
+            actTurn.character.currentOpportunityTurn--;
+            if (actTurn.character.currentOpportunityTurn <= 0) {
+                actTurn.character.opportunityMode = false;                        
+            }
+        }    
+    }
     void cleanse() {
         foreach (Character character in characters) {            
             character.currentAttack = character.attack;
@@ -282,11 +329,19 @@ public class CombatController : MonoBehaviour
     }
 
     IEnumerator Vanish() {
-
-        yield return new WaitForSecondsRealtime(1.7f);
+        yield return new WaitForSecondsRealtime(3f);
         text.text = "";
         GoToState(State.COMBAT_CHECK_ALIVE);
     }
+
+    IEnumerator goToTargetStateWithText(State state) {
+        yield return new WaitForSecondsRealtime(1.7f);
+        text.text = "";
+        GoToState(state);
+
+
+    }
+
 
     void Start()
     {
@@ -324,15 +379,30 @@ public class CombatController : MonoBehaviour
         
     }
 
-    void Update()
+    void FixedUpdate()
     {
+
+
+        foreach (TimeEvent timeEvent in timeEvents) {
+            if (DateTime.Now.CompareTo(timeEvent.time) < 0) {
+                if (!timeEvent.done) {
+                    eventList.Add(timeEvent.combatEvent);
+                    timeEvent.done = true;
+                }
+            
+            }
+               
+        }
+        
+        
+
         if (eventList.Count != 0)
         {
             CombatEvent combatEvent = eventList.Last();
             eventList.RemoveAt(eventList.Count - 1);
             ProcessEvent(combatEvent);
         }
-
+        timeEvents.RemoveAll(s => s.done);
 
     }
 
@@ -342,7 +412,5 @@ public class CombatController : MonoBehaviour
         roundController.CalculateTurn(characters);
         roundList.Add(roundController.turns);
     }
-
     // Update is called once per frame
-
 }

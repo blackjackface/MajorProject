@@ -47,10 +47,10 @@ public class UI : MonoBehaviour
                 for (int i = 2; i < character.behaviour.abilities.Count; i++) {
                     if (isLeft) {
                     createdButton = ButtonConstructor(new Vector3(initialX, initialY + additionalY, 0), 
-                        character.behaviour.abilities[i].abilityName, this, i);
+                        character.behaviour.abilities[i].abilityName, this, i, character.behaviour.abilities[i].FillDescription());
                     } else {
                     createdButton = ButtonConstructor(new Vector3(anotherInitialValueX, initialY + additionalY, 0), 
-                        character.behaviour.abilities[i].abilityName, this , i);
+                        character.behaviour.abilities[i].abilityName, this , i, character.behaviour.abilities[i].FillDescription());
                         additionalY -= 70;
                     }
                     createdButton.gameObject.SetActive(false);
@@ -72,7 +72,7 @@ public class UI : MonoBehaviour
         cancelButton.onClick.AddListener(CancelButtonPress);
     }
 
-    GameObject ButtonConstructor(Vector3 position, string text, UI ui, int index)
+    GameObject ButtonConstructor(Vector3 position, string text, UI ui, int index, string abilityText)
     {
 
         GameObject createdButton = Instantiate(buttonPrefab); 
@@ -82,6 +82,7 @@ public class UI : MonoBehaviour
         createdButton.GetComponentInChildren<Text>().text = text;
         createdButton.GetComponent<Button>().onClick.AddListener(() => ui.UseAbilitywithIndex(index));
         createdButton.GetComponent<Button>().onClick.AddListener(() => ui.PlaySound());
+        createdButton.GetComponent<CombatTextTip>().descriptionString = abilityText;
         createdButton.transform.localScale = new Vector3(0.5f, 0.5f, 1.0f);
         return createdButton;
     }
@@ -99,8 +100,6 @@ public class UI : MonoBehaviour
         CombatEvent combatEvent = new CombatEvent();
         combatEvent.eventType = CombatEvent.EventType.START_ATTACK;
         combatController.eventList.Add(combatEvent);
-
-        //todo ir al combat controller y a la hora de seleccionar target se usa susodicha habilidad.
     }
 
     // Updates calls the combat controller State and changes the UI depending which phase it is.    
@@ -110,7 +109,6 @@ public class UI : MonoBehaviour
         switch (combatController.state)
         {
             case CombatController.State.PLAYER_SELECTING_COMMAND:
-
                 attackButton.gameObject.SetActive(true);
                 defenseButton.gameObject.SetActive(true);
                 gambleButton.gameObject.SetActive(true);
@@ -186,12 +184,12 @@ public class UI : MonoBehaviour
         {
             if (combatController.state == CombatController.State.PLAYER_SELECTING_TARGET)
             {
-                Debug.Log("new target: " + characterTarget.name + " has been selected");
+                Debug.Log("new target: " + characterTarget.charactername + " has been selected");
                 foreach (Character character in combatController.characters)
                 {
 
                     character.gameObject.transform.position = character.originalPosition;
-                    character.gameObject.GetComponent<SpriteRenderer>().color = new Color(0.6f, 0.6f, 0.6f);
+        //            character.gameObject.GetComponent<SpriteRenderer>().color = new Color(0.6f, 0.6f, 0.6f);
                     if (character.gameObject.GetComponent<ColorLerp>() != null)
                         character.gameObject.GetComponent<ColorLerp>().enabled = false;
                     if (character.gameObject.GetComponent<ColorLerp>() != null)
@@ -208,7 +206,7 @@ public class UI : MonoBehaviour
             foreach (Character character in combatController.characters)
             {
                 character.gameObject.transform.position = character.originalPosition;
-                character.gameObject.GetComponent<SpriteRenderer>().color = new Color(0.6f, 0.6f, 0.6f);
+        //        character.gameObject.GetComponent<SpriteRenderer>().color = new Color(0.6f, 0.6f, 0.6f);
                 if (character.gameObject.GetComponent<ColorLerp>() != null)
                     character.gameObject.GetComponent<ColorLerp>().enabled = false;
                 if (character.gameObject.GetComponent<ColorLerp>() != null)
@@ -237,21 +235,26 @@ public class UI : MonoBehaviour
         int heigh = 960;
         foreach (Turn turn in combatController.roundList[0])
         {
+            if (!turn.character.isDead)
+            {
+                GameObject gameObjectText = new GameObject();
+                string characterName = turn.character.charactername;
 
-            GameObject gameObjectText = new GameObject();
-            string characterName = turn.character.name;
-           
-            Text characterNameText = gameObjectText.AddComponent<Text>();
+                Text characterNameText = gameObjectText.AddComponent<Text>();
 
-            characterNameText.GetComponent<Text>().font = referenceText.font;
-            characterNameText.GetComponent<Text>().fontSize = referenceText.fontSize;
-            characterNameText.transform.localScale = new Vector3(2.5f, 2.5f, 2.5f);
-
-            characterNameText.text = characterName;
-            characterNameText.GetComponent<RectTransform>().position = new Vector3(960, heigh, 0);
-            characterNameText.GetComponent<RectTransform>().SetParent(canvas.transform);
-            turnListText.Add(characterNameText);
-            heigh -= 25;
+                characterNameText.GetComponent<Text>().font = referenceText.font;
+                characterNameText.GetComponent<Text>().fontSize = referenceText.fontSize;
+                characterNameText.transform.localScale = new Vector3(2.5f, 2.5f, 2.5f);
+                characterNameText.text = characterName;
+                if (turn.character.currentOpportunityTurn > 0)
+                {
+                    characterNameText.text = characterName + "*";
+                }
+                characterNameText.GetComponent<RectTransform>().position = new Vector3(960, heigh, 0);
+                characterNameText.GetComponent<RectTransform>().SetParent(canvas.transform);
+                turnListText.Add(characterNameText);
+                heigh -= 25;
+            }
         }
         if(turnListText.Count != 0)
         turnListText[0].color = Color.yellow;
@@ -290,8 +293,8 @@ public class UI : MonoBehaviour
         {
 
             character.gameObject.transform.position = character.originalPosition;
-            character.gameObject.GetComponent<SpriteRenderer>().color = new Color(0.6f, 0.6f, 0.6f);
-            if(character.gameObject.GetComponent<ColorLerp>()!= null)
+            character.gameObject.GetComponent<SpriteRenderer>().color = character.gameObject.GetComponent<ColorLerp>().baseColor;
+            if (character.gameObject.GetComponent<ColorLerp>()!= null)
               character.gameObject.GetComponent<ColorLerp>().enabled = false;
             if (character.gameObject.GetComponent<ColorLerp>() != null)
               character.gameObject.GetComponent<LerpPosition>().enabled = false;

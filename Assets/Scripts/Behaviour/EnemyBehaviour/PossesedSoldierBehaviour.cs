@@ -71,7 +71,7 @@ public class PossesedSoldierBehaviour : Behaviour
                     }
                     else
                     {
-                        textToShow = "The " + user.name + " seems stunned... ";
+                        textToShow = "The " + user.charactername + " seems stunned... ";
                         
 
                     }

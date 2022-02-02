@@ -378,6 +378,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eed8ce062be1b94b9729dcc3bcda15e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseColor: {r: 0, g: 0, b: 0, a: 0}
+  white: {r: 1, g: 1, b: 1, a: 1}
   speed: 1
   baseColorGray: 0.5
 --- !u!114 &2956610887359739896
@@ -392,7 +394,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 273c6bf5271fd1a4fbe42009ecd5c5f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: basicCharacter
+  charactername: name
   level: 1
   maxHP: 10
   currentHP: 10
@@ -406,14 +408,18 @@ MonoBehaviour:
   currentResistance: 5
   agility: 5
   currentAgility: 5
+  maxTurnsOpportunity: 3
+  currentOpportunityTurn: -1
   mana: 11
   initiative: 1
   isDead: 0
   turnGauge: 0
   isPlayer: 1
+  opportunityGauge: 0
+  maxOpportunityGaugeBar: 100
   playerIndex: -1
   behaviour: {fileID: 446419797}
-  modifier: []
+  modifiers: []
   m_MyEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -525,6 +531,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3005a5d0acb0f8e41a2deecacfd71dc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initialAbilities: []
   abilities: []
   textToShow: 
   characterList: []

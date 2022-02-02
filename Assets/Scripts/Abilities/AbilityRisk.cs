@@ -19,15 +19,22 @@ public class AbilityRisk : Ability
         SUPREME //daño supremo, es prácticamente el mejor tipo de daño además de que tiene DRIP 
     }
     public Element element = Element.NONE;
+    public int baseDamage = 1;
     public float multiplier = 1;
     public int riskFactor = 0;
-
     public bool isAttackMove = true;
     public bool isMagic = false;
     public bool hits = false;
+    public Modifier modifier;
+    public GameObject popUpText;
     [SerializeField]
     public Color elementColor;
 
+
+    private void Start()
+    {
+       description = "An elemental Attack of " + element.ToString() + "/n" + "Damage: " + baseDamage.ToString();
+    }
 
     public void colorSelection() {
         switch (element) {
@@ -61,12 +68,7 @@ public class AbilityRisk : Ability
             case Element.SUPREME:
                 elementColor = Color.HSVToRGB(255, 255, 0);
                 break;
-
         }
-
-
-
-
     }
 
     public void CalculateMultiplier(Character target){
@@ -98,5 +100,12 @@ public class AbilityRisk : Ability
             multiplier = -0.5f;
             break;
         }
+    }
+
+    override public string FillDescription()
+    {
+        string textColorPerElement ="#" + ColorUtility.ToHtmlStringRGBA(elementColor);
+        return "An elemental Attack of " + $" <color={textColorPerElement}>{element.ToString()}</color>" + "\n" + "Damage: " 
+            + baseDamage.ToString() + "\n" + "Mana cost: " + manaCost + "\n" + "Risk: "+ riskFactor + "%"; 
     }
 }

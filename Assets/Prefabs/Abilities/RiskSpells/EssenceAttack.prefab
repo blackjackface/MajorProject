@@ -45,15 +45,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: Essence Lance
   showText: something is wrong
+  description: 'An elemental Attack of Essence Element Damage: 12 Mana: 30 Risk:
+    25%'
   userName: 
   targetName: 
+  manaCost: 30
+  gaugeFillValue: 0
+  referenceText: {fileID: 0}
   element: 9
+  baseDamage: 12
   multiplier: 1
   riskFactor: 25
-  manaCost: 30
   isAttackMove: 1
   isMagic: 1
   hits: 0
-  elementColor: {r: 0.13483442, g: 0.30865073, b: 0.4245283, a: 0.8}
-  baseDamage: 12
+  modifier: {fileID: 0}
   popUpText: {fileID: 2673144227410131628, guid: 978233bfb8f3b8540ae602d0cdda313b, type: 3}
+  elementColor: {r: 0.13483442, g: 0.30865073, b: 0.4245283, a: 0.8}
+  opportunityModeMultiplier: 1
+  gaugeFillingValue: 0
+  gaugeFillingFactorOnHit: 1
+  gaugeFillingFactorOnMiss: 1
+  gaugeFillingFactorOnHitEnemy: 1
+  gaugeFillingFactorOnMissEnemy: 1

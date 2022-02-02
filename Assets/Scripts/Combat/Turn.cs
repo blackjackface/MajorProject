@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Turn
 {  
-
-
    public Character character;
    public bool isPlayer = false;
 

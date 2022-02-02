@@ -9,7 +9,7 @@ public class Defend : Ability
 
     public override void UseAbility(Character user)
     {
-        userName = user.name;
+        userName = user.charactername;
 
         user.isDefending = true;
         user.mana += manaGain;

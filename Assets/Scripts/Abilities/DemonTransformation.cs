@@ -10,7 +10,7 @@ public class DemonTransformation : Ability
     Sprite demonSprite;
     public override void UseAbility(Character user)
     {
-        userName = user.name;
+        userName = user.charactername;
         user.maxHP = 211;
         user.currentHP = user.maxHP;
         user.currentAttack = user.attack;

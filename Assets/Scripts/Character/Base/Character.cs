@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 public class Character : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    public string name = "name";
+    public string charactername = "name";
     public int level = 1;
     public int maxHP = 10; 
     public int currentHP = 10;
@@ -19,12 +19,16 @@ public class Character : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     public int resistance = 5;    
     public int currentResistance = 5;    
     public int agility = 5;    
-    public int currentAgility = 5;    
+    public int currentAgility = 5;
+    public int maxTurnsOpportunity = 3;
+    public int currentOpportunityTurn = -1;
     public int mana = 0;    
     public float initiative = 0.0f;    
     public bool isDead = false;    
     public float turnGauge = 0.0f;    
-    public bool isPlayer = false;    
+    public bool isPlayer = false;
+    public float opportunityGauge = 0.0f;
+    public float maxOpportunityGaugeBar = 100.0f;
     public int playerIndex = -1;    
     public Behaviour behaviour;
     public List<Modifier> modifiers = new List<Modifier>();
@@ -41,7 +45,7 @@ public class Character : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     //La barrita invisible de los turnos funciona de tal manera que se van rellenando
     //a lo largo del tiempo usando principalment el stat de agilidad
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         currentHP = maxHP;
         currentAttack = attack;
@@ -49,7 +53,11 @@ public class Character : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         currentIntelligence = intelligence;
         currentResistance = resistance;
         currentAgility = agility;
+    }
+
+    void Start() {
         originalPosition = GetComponent<Transform>().position;
+
     }
 
     // Update is called once per frame
@@ -60,7 +68,7 @@ public class Character : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     void OnMouseDown()
     {
-        Debug.Log("has pinchao a: " + name);
+        Debug.Log("has pinchao a: " + charactername);
         m_MyEvent.Invoke();
     }
 

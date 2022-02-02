@@ -44,16 +44,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityName: Thunder Stomp
-  showText: ' basicCharacter used ThunderAttack dealt 31 damage to undertakor'
-  userName: basicCharacter
-  targetName: undertakor
+  showText: ' Thunder Stomp missed and gave 8 mana to Undertakor B'
+  description: 'An elemental Attack of Essence Element Damage: 18 Mana: 8'
+  userName: Player A
+  targetName: Undertakor B
+  manaCost: 8
+  gaugeFillValue: 0
+  referenceText: {fileID: 0}
   element: 6
+  baseDamage: 18
   multiplier: 1
   riskFactor: 65
-  manaCost: 8
   isAttackMove: 1
   isMagic: 1
-  hits: 1
-  elementColor: {r: 0.98039216, g: 1, b: 0.21568628, a: 1}
-  baseDamage: 18
+  hits: 0
+  modifier: {fileID: 0}
   popUpText: {fileID: 2673144227410131628, guid: 978233bfb8f3b8540ae602d0cdda313b, type: 3}
+  elementColor: {r: 0.97530866, g: 1, b: 0, a: 1}
+  opportunityModeMultiplier: 2
+  gaugeFillingValue: 12
+  gaugeFillingFactorOnHit: 1
+  gaugeFillingFactorOnMiss: 1.5
+  gaugeFillingFactorOnHitEnemy: 1
+  gaugeFillingFactorOnMissEnemy: 0.3

@@ -23,9 +23,9 @@ public class DarkWave : AbilityRisk
         {
             target.currentHP -= damage;
 
-            userName = user.name;
-            targetName = target.name;
-            Debug.Log(" " + user.name + " dealt " + damage.ToString() + " Damage to " + target.name);
+            userName = user.charactername;
+            targetName = target.charactername;
+            Debug.Log(" " + user.charactername + " dealt " + damage.ToString() + " Damage to " + target.charactername);
             if (target.currentHP <= 0)
             {
                 target.isDead = true;

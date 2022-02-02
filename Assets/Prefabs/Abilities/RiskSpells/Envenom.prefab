@@ -77,16 +77,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: envenom
   showText: ' player 2 used envenom dealt 15 damage to undertakor 2'
+  description: 
   userName: player 2
   targetName: undertakor 2
-  manaCost: 0
+  manaCost: 11
+  gaugeFillValue: 0
+  targetPosition: {x: 0, y: 0, z: 0}
+  offsetdistance: {x: 0, y: 0, z: 0}
+  referenceText: {fileID: 0}
+  particleEffects: {fileID: 0}
   element: 4
+  baseDamage: 11
   multiplier: 0.8
-  riskFactor: 11
+  riskFactor: 28
   isAttackMove: 1
   isMagic: 0
   hits: 1
-  elementColor: {r: 0, g: 1, b: 0, a: 1}
-  baseDamage: 11
   modifier: {fileID: 3303883705401926044}
   popUpText: {fileID: 2673144227410131628, guid: 978233bfb8f3b8540ae602d0cdda313b, type: 3}
+  elementColor: {r: 0, g: 1, b: 0, a: 1}
+  opportunityModeMultiplier: 1
+  gaugeFillingValue: 0
+  gaugeFillingFactorOnHit: 1.1
+  gaugeFillingFactorOnMiss: 1.2
+  gaugeFillingFactorOnHitEnemy: 0.9
+  gaugeFillingFactorOnMissEnemy: 0.8

@@ -44,16 +44,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityName: Fire Nailshot
-  showText: ' Dinosaur used FireAttack dealt 260 damage to Eyeyeboll'
-  userName: Dinosaur
-  targetName: Eyeyeboll
-  element: 2
-  multiplier: 2.5
-  riskFactor: 30
+  showText: ' Fire Nailshot missed and gave 20 mana to Undertakor A'
+  description: 'An elemental Attack of Essence Element Damage: 13 Mana: 20 Risk:
+    30'
+  userName: Player B
+  targetName: Undertakor A
   manaCost: 20
+  gaugeFillValue: 0
+  targetPosition: {x: 0, y: 0, z: 0}
+  referenceText: {fileID: 0}
+  particleEffects: {fileID: 8805452569147980292, guid: 055f2a528ce69054f8d5a43d31a20a09, type: 3}
+  element: 2
+  baseDamage: 13
+  multiplier: 0.8
+  riskFactor: 30
   isAttackMove: 1
   isMagic: 1
-  hits: 1
-  elementColor: {r: 0.8018868, g: 0.3477336, b: 0, a: 0}
-  baseDamage: 13
+  hits: 0
+  modifier: {fileID: 0}
   popUpText: {fileID: 2673144227410131628, guid: 978233bfb8f3b8540ae602d0cdda313b, type: 3}
+  elementColor: {r: 1, g: 0, b: 0, a: 1}
+  opportunityModeMultiplier: 1.5
+  gaugeFillingValue: 10
+  gaugeFillingFactorOnHit: 1
+  gaugeFillingFactorOnMiss: 0.3
+  gaugeFillingFactorOnHitEnemy: 0.3
+  gaugeFillingFactorOnMissEnemy: 0.5

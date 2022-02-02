@@ -1,0 +1,198 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7511328832945673351
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7511328832945673401}
+  - component: {fileID: 7511328832945673350}
+  - component: {fileID: 9186944489069209780}
+  - component: {fileID: 9186944489069209777}
+  - component: {fileID: 9186944489069209778}
+  - component: {fileID: 9186944489069209779}
+  - component: {fileID: 6231126705001652037}
+  m_Layer: 0
+  m_Name: Mandragore
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7511328832945673401
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7511328832945673351}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.91, z: 0.609}
+  m_LocalScale: {x: 10, y: 10, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &7511328832945673350
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7511328832945673351}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 4f93c2083dc3c1c4cbff1cbeff5cc9e2, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 3647bb21eb75a49df9509cd1f4af247f, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 2.41, y: 2.3}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!65 &9186944489069209780
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7511328832945673351}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.18046132, y: 0.18784575, z: 0.2}
+  m_Center: {x: 0.0027775913, y: -0.066077285, z: 0}
+--- !u!114 &9186944489069209777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7511328832945673351}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf3a6313c35bd92428cb233d985251db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InitialPosition: {x: 0, y: 0, z: 0}
+  targetPosition: {x: 0, y: 3.91, z: 0}
+--- !u!114 &9186944489069209778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7511328832945673351}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0eed8ce062be1b94b9729dcc3bcda15e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 1
+  baseColorGray: 0.5
+--- !u!114 &9186944489069209779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7511328832945673351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 273c6bf5271fd1a4fbe42009ecd5c5f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  charactername: Mandragore
+  level: 1
+  maxHP: 38
+  currentHP: 10
+  attack: 11
+  currentAttack: 5
+  defense: 2
+  currentDefense: 5
+  intelligence: 9
+  currentIntelligence: 5
+  resistance: 11
+  currentResistance: 5
+  agility: 3
+  currentAgility: 5
+  maxTurnsOpportunity: 3
+  currentOpportunityTurn: -1
+  mana: 0
+  initiative: 0.85
+  isDead: 0
+  turnGauge: 0
+  isPlayer: 0
+  opportunityGauge: 0
+  maxOpportunityGaugeBar: 100
+  playerIndex: -1
+  behaviour: {fileID: 6231126705001652037}
+  modifiers: []
+  m_MyEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  isDefending: 0
+  mouse_over: 0
+  opportunityMode: 0
+  originalPosition: {x: 0, y: 0, z: 0}
+  ElementCompatibility: 43004300430043004300430043004300430043004300
+--- !u!114 &6231126705001652037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7511328832945673351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3260ce7134faea46b92ff640d1ae603, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialAbilities:
+  - {fileID: 2377710092501265445, guid: a50dd47524c96e64a9e414441a9a3f9a, type: 3}
+  - {fileID: 6109339557625145681, guid: 975a90435d59e9e4c9c9dc917bbd06ba, type: 3}
+  - {fileID: 2573369730821161145, guid: 4e4970aed0b9be94688f9f9544f95636, type: 3}
+  abilities:
+  - {fileID: 2377710092501265445, guid: a50dd47524c96e64a9e414441a9a3f9a, type: 3}
+  - {fileID: 6109339557625145681, guid: 975a90435d59e9e4c9c9dc917bbd06ba, type: 3}
+  - {fileID: 3740624361869836861, guid: a7355a48549b6db4c9cd1e5eb5c4cb0b, type: 3}
+  textToShow: 
+  players: []

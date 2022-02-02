@@ -19,10 +19,6 @@ public class GameCharacter : MonoBehaviour
     public Team team;
     public int remainingRoundTurns;
     // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     List<AbilityEnum> toAbilityEnums(List<Ability> abilityList) {
 

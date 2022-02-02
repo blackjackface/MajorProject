@@ -14,28 +14,13 @@ public class PlayerBehaviour : Behaviour
     public Canvas canvas;
     public GameObject buttonPrefab;
     public bool hasTurnCompleted = false;
-    override public void Start()
-    {
-        base.Start();
-        CreateButtons();
-        enemyList = characterList.FindAll(character => character.isPlayer == false);
-        allyList = characterList.FindAll(character => character.isPlayer);
-    }
-    void CreateButtons() {
- //       GameObject buttonAttack = ButtonConstructor(new Vector3(320,-90,0),"Attack",abilities.Find(ability => ability.name.Contains("Attack")));
- //       GameObject buttonDefend = ButtonConstructor(new Vector3(320, -120, 0), "Defend", abilities.Find(ability => ability.name.Contains("Defend")));           
-    }
+
 
     IEnumerator targetSelect() {
-
         int selectionIndex = 0;
         int maxIndex = enemyList.Count;
-        bool selectionIsConfirmed = false;
-        
-
-        yield return  new GameObject();
-    
-        
+        bool selectionIsConfirmed = false;        
+        yield return  new GameObject();            
     }
 
     void targetSelectionOffensive() {
@@ -57,12 +42,10 @@ public class PlayerBehaviour : Behaviour
         }
     }
 
-
     public override void Act(Character user, List<Character> targets)
     {
         Debug.Log("PlayerBehaviour.act");
   //      StartCoroutine(ActPlayer());
-
     }
 
 

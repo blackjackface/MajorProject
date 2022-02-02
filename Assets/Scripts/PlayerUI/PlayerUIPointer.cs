@@ -21,19 +21,18 @@ public class PlayerUIPointer : MonoBehaviour
     {
         playerHP.text ="HP " + SelfCharacter.currentHP.ToString() + "/" +  SelfCharacter.maxHP.ToString();
         playerMana.text = "mana " + SelfCharacter.mana.ToString();
-        playerName.text = SelfCharacter.name;
-        if (SelfCharacter.opportunityMode)
+        if (SelfCharacter.currentOpportunityTurn > 0)
         {
-            playerName.color = new Color(1.0F, 0.8F, 0.2F);
-
-
+            playerName.color = new Color(1.0F, 1.0F, 0.4F);
+            playerName.text = SelfCharacter.charactername + " *";
 
         }
         else {
             playerName.color = new Color(1, 1, 1);
-        
+            playerName.text = SelfCharacter.charactername;
+
         }
-       
+
 
     }
 }

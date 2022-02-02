@@ -44,16 +44,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityName: Holy shock
-  showText: something is wrong
-  userName: 
-  targetName: 
-  element: 7
-  multiplier: 1
-  riskFactor: 24
+  showText: ' Player A used Holy shock dealt 59 damage to Undertakor B'
+  description: 'An elemental Attack of Essence Element Damage: 9 Mana: 15'
+  userName: Player A
+  targetName: Undertakor B
   manaCost: 15
+  gaugeFillValue: 0
+  referenceText: {fileID: 0}
+  element: 7
+  baseDamage: 9
+  multiplier: 2.5
+  riskFactor: 24
   isAttackMove: 1
   isMagic: 1
-  hits: 0
-  elementColor: {r: 0.9811321, g: 0.86949486, b: 0.26533753, a: 0}
-  baseDamage: 9
+  hits: 1
+  modifier: {fileID: 0}
   popUpText: {fileID: 2673144227410131628, guid: 978233bfb8f3b8540ae602d0cdda313b, type: 3}
+  elementColor: {r: 0.96434295, g: 0.9811321, b: 0.57078433, a: 1}
+  opportunityModeMultiplier: 1
+  gaugeFillingValue: 0
+  gaugeFillingFactorOnHit: 0.8
+  gaugeFillingFactorOnMiss: 0.5
+  gaugeFillingFactorOnHitEnemy: 0.2
+  gaugeFillingFactorOnMissEnemy: 0.1

@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class Behaviour : MonoBehaviour
 {
     //this behaviour is considered to be dum-dum and almost just attacks and attacks until one of both dies
-
+    public List<Ability> initialAbilities;
     public List<Ability> abilities;
     public string textToShow;
     int abilityUsed = 0;
@@ -24,15 +24,11 @@ public abstract class Behaviour : MonoBehaviour
         textToShow = abilities[abilityIndex].showText;
     }
     // Start is called before the first frame update
-    public virtual void Start()
+    public virtual void Awake()
     {
-  /*      user = this.gameObject.GetComponent<Character>();
+        abilities = initialAbilities;
 
-        foreach (Ability ability in abilities) {
 
-            ability.user = user;
-        }
-  */
     }
 
     // Update is called once per frame

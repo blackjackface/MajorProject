@@ -45,15 +45,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: Sling shot
   showText: ' Eyeyeboll used EarthAttack dealt 124 damage to Dinosaur'
+  description: 'An elemental Attack of Earth Element Damage: 15 Mana: 25 Risk= 44%'
   userName: Eyeyeboll
   targetName: Dinosaur
+  manaCost: 25
+  gaugeFillValue: 0
+  referenceText: {fileID: 0}
   element: 4
+  baseDamage: 15
   multiplier: 1
   riskFactor: 44
-  manaCost: 25
   isAttackMove: 1
   isMagic: 0
   hits: 1
-  elementColor: {r: 0.16539629, g: 0.254717, b: 0.12655748, a: 0}
-  baseDamage: 15
+  modifier: {fileID: 0}
   popUpText: {fileID: 2673144227410131628, guid: 978233bfb8f3b8540ae602d0cdda313b, type: 3}
+  elementColor: {r: 0.16539629, g: 0.254717, b: 0.12655748, a: 0}
+  opportunityModeMultiplier: 1
+  gaugeFillingValue: 11
+  gaugeFillingFactorOnHit: 1.25
+  gaugeFillingFactorOnMiss: 0.6
+  gaugeFillingFactorOnHitEnemy: 0.4
+  gaugeFillingFactorOnMissEnemy: 1.25
