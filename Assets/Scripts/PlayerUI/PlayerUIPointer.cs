@@ -10,6 +10,7 @@ public class PlayerUIPointer : MonoBehaviour
     public Text playerHP;
     public Text playerMana;
     public Text playerName;
+    public Text playerOpportunity;
     public Character SelfCharacter;
     void Start()
     {
@@ -20,7 +21,8 @@ public class PlayerUIPointer : MonoBehaviour
     void Update()
     {
         playerHP.text ="HP " + SelfCharacter.currentHP.ToString() + "/" +  SelfCharacter.maxHP.ToString();
-        playerMana.text = "mana " + SelfCharacter.mana.ToString();
+        playerMana.text = "Mana " + SelfCharacter.mana.ToString();
+        playerOpportunity.text = "Opportunity " + ((int)SelfCharacter.opportunityGauge).ToString() + "/100"; 
         if (SelfCharacter.currentOpportunityTurn > 0)
         {
             playerName.color = new Color(1.0F, 1.0F, 0.4F);

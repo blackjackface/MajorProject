@@ -115,14 +115,16 @@ public class UI : MonoBehaviour
                 playerIndex = combatController.actTurn.character.playerIndex;
                 buttonListPerCharacter[playerIndex].ForEach(x => x.SetActive(false));
                 cancelButton.gameObject.SetActive(false);
+
                 break;
             case CombatController.State.SELECTING_TURN:   
                 cancelButton.gameObject.SetActive(false);
                 UpdateTurnListText();
 
+
                 break;            
             case CombatController.State.END_OF_ROUND:
-                 UpdateTurnListText();
+                UpdateTurnListText();
                 cancelButton.gameObject.SetActive(false);
                 break;
             case CombatController.State.END_OF_COMBAT:             
@@ -131,6 +133,7 @@ public class UI : MonoBehaviour
                 break;            
             case CombatController.State.ENEMY_ANIMATION:
                 cancelButton.gameObject.SetActive(false);
+                UpdateTurnListText();
                 break;                         
             case CombatController.State.PLAYER_SELECTING_TARGET:
                 attackButton.gameObject.SetActive(false);
@@ -141,6 +144,7 @@ public class UI : MonoBehaviour
                 break;
             case CombatController.State.PLAYER_PERFORMING_ACTION:
                 cancelButton.gameObject.SetActive(false);
+                UpdateTurnListText();
                 break;        
             case CombatController.State.PLAYER_SELECTING_ABILITY:
 
@@ -149,10 +153,10 @@ public class UI : MonoBehaviour
                 buttonListPerCharacter[playerIndex].ForEach(x => x.SetActive(true));
                 int i = 0;
                 foreach (Ability ability in combatController.actTurn.character.behaviour.abilities) {
-
+                    ability.CheckIfUsable(combatController.actTurn.character);
                     if (i>1)
                     {
-                        if (combatController.actTurn.character.mana < ability.manaCost)
+                        if ((combatController.actTurn.character.mana < ability.manaCost) || ability.usable == false)
                         {
                             buttonListPerCharacter[playerIndex][i - 2].GetComponentInChildren<Text>().color = new Color32(255, 255, 255, 155);
                             buttonListPerCharacter[playerIndex][i - 2].GetComponent<Button>().interactable = false;
@@ -160,12 +164,18 @@ public class UI : MonoBehaviour
                         else {
                             buttonListPerCharacter[playerIndex][i - 2].GetComponentInChildren<Text>().color = new Color32(255, 255, 255, 255);
                             buttonListPerCharacter[playerIndex][i - 2].GetComponent<Button>().interactable = true;
-
                         }
                     }
                     i++;
                 }
                 cancelButton.gameObject.SetActive(true);
+                break;
+            case CombatController.State.COMBAT_CHECK_ALIVE:
+                attackButton.gameObject.SetActive(false);
+                defenseButton.gameObject.SetActive(false);
+                gambleButton.gameObject.SetActive(false);
+                cancelButton.gameObject.SetActive(false);
+                UpdateTurnListText();
                 break;
             case CombatController.State.END_OF_TURN:
                 attackButton.gameObject.SetActive(false);
@@ -238,10 +248,20 @@ public class UI : MonoBehaviour
             if (!turn.character.isDead)
             {
                 GameObject gameObjectText = new GameObject();
-                string characterName = turn.character.charactername;
+                string characterName = "";
+                if (turn.character.isPlayer)
+                {
+                   characterName = ">" + turn.character.charactername;
+                }
+                else {
 
+                   characterName = turn.character.charactername;
+                }
                 Text characterNameText = gameObjectText.AddComponent<Text>();
+                if (!turn.character.isPlayer) {
 
+                    characterNameText.color = Color.red;
+                }
                 characterNameText.GetComponent<Text>().font = referenceText.font;
                 characterNameText.GetComponent<Text>().fontSize = referenceText.fontSize;
                 characterNameText.transform.localScale = new Vector3(2.5f, 2.5f, 2.5f);
@@ -309,7 +329,5 @@ public class UI : MonoBehaviour
         Debug.Log("me la he jugado");
         combatController.state = CombatController.State.PLAYER_GAMBLEING;
         PlaySound();
-
     }
-
 }

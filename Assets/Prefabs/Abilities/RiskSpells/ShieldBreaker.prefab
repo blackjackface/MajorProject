@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3280361273028770569
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6448767574039787117}
+  - component: {fileID: 1536211078052580806}
+  - component: {fileID: 4212160649275052406}
+  m_Layer: 0
+  m_Name: ShieldBreaker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6448767574039787117
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3280361273028770569}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 240.71432, y: 1028.9702, z: -34.929726}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1536211078052580806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3280361273028770569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4d27a1efc5b89446abcd08eea3488c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityName: ShieldBreaker
+  showText: " Knight used ShieldBreaker dealt 53 damage to Icerg\xF6lg"
+  description: 
+  userName: Knight
+  targetName: "Icerg\xF6lg"
+  manaCost: 24
+  gaugeFillValue: 0
+  targetPosition: {x: 0.529, y: 3.78, z: 0.914}
+  offsetdistance: {x: 0, y: 0, z: 0}
+  referenceText: {fileID: 0}
+  particleEffects: {fileID: 0}
+  usable: 1
+  element: 1
+  baseDamage: 15
+  multiplier: 1.75
+  riskFactor: 32
+  isAttackMove: 1
+  isMagic: 0
+  hits: 1
+  initialModifier: {fileID: 4212160649275052406}
+  currentModifier: {fileID: 4212160649275052406}
+  popUpText: {fileID: 2673144227410131628, guid: 978233bfb8f3b8540ae602d0cdda313b, type: 3}
+  elementColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  damage: 53
+  currentRiskFactor: 21
+  opportunityModeMultiplier: 1
+  gaugeFillingValue: 14
+  gaugeFillingFactorOnHit: 1.2
+  gaugeFillingFactorOnMiss: 0.8
+  gaugeFillingFactorOnHitEnemy: 0
+  gaugeFillingFactorOnMissEnemy: 0.7
+--- !u!114 &4212160649275052406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3280361273028770569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4273fbe2c59104f439396cb119b57d1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxTurnsExpiration: 3
+  maxAttackExpiration: -1
+  turnsExpiration: 2
+  roundsExpiration: -1
+  attackExpiration: -1
+  isExpired: 0
+  additionalAttack: 0
+  additionalDefense: 5
+  additionalIntelligence: 0
+  additionalResistance: 0
+  additionalAgility: 0
+  attackMultiplier: 1
+  defenseMultiplier: 0.85
+  intelligenceMultiplier: 1
+  resistanceMultiplier: 1
+  agilityMultiplier: 1
+  initiativeMultiplier: 1
+  character: {fileID: 0}
+  modifierName: DefenseBreak
+  description: (lower defenses for 3 turns)

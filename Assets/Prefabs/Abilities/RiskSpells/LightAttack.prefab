@@ -44,23 +44,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityName: Holy shock
-  showText: ' Player A used Holy shock dealt 59 damage to Undertakor B'
+  showText: ' Holy shock missed and gave 15 mana to Mandragore A'
   description: 'An elemental Attack of Essence Element Damage: 9 Mana: 15'
   userName: Player A
-  targetName: Undertakor B
+  targetName: Mandragore A
   manaCost: 15
   gaugeFillValue: 0
+  targetPosition: {x: -0.96800005, y: 1.8079998, z: 0.918}
+  offsetdistance: {x: 0, y: 0, z: 0}
   referenceText: {fileID: 0}
+  particleEffects: {fileID: 0}
   element: 7
   baseDamage: 9
-  multiplier: 2.5
+  multiplier: 1
   riskFactor: 24
   isAttackMove: 1
   isMagic: 1
-  hits: 1
+  hits: 0
   modifier: {fileID: 0}
   popUpText: {fileID: 2673144227410131628, guid: 978233bfb8f3b8540ae602d0cdda313b, type: 3}
-  elementColor: {r: 0.96434295, g: 0.9811321, b: 0.57078433, a: 1}
+  elementColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   opportunityModeMultiplier: 1
   gaugeFillingValue: 0
   gaugeFillingFactorOnHit: 0.8

@@ -8,8 +8,8 @@ using UnityEngine.UI;
 public class GeneralOffensiveAbility : AbilityRisk
 {
    
-    int damage = 0;
-    int currentRiskFactor;
+    public int damage = 0;
+    public int currentRiskFactor;
     public float opportunityModeMultiplier = 1.0f;  
     public float gaugeFillingValue = 0.0f;
     public float gaugeFillingFactorOnHit = 1.0f;
@@ -40,14 +40,18 @@ public class GeneralOffensiveAbility : AbilityRisk
 
         if (user.opportunityMode || user.currentOpportunityTurn > 0)
         {
-            if (modifier != null)
+            if (currentModifier != null)
             {
-                Modifier addModifier = modifier;
-                if (target.modifiers.Contains(modifier))
+                Modifier addModifier = new Modifier();
+                addModifier = currentModifier;
+                if (target.modifiers.Contains(currentModifier))
                 {
-                    target.modifiers.Remove(modifier);
+                    target.modifiers.Remove(currentModifier);
 
                 }
+                addModifier.SetExpiration();
+                addModifier.character = target;
+
                 target.modifiers.Add(addModifier);
             }
             hits = true;
@@ -69,14 +73,17 @@ public class GeneralOffensiveAbility : AbilityRisk
             }
             else
             {
-                if (modifier != null)
+                if (currentModifier != null)
                 {
-                    Modifier addModifier = modifier;
-                    if (target.modifiers.Contains(modifier))
+                    Modifier addModifier = new Modifier();
+                    addModifier = currentModifier;
+                    if (target.modifiers.Contains(currentModifier))
                     {
-                        target.modifiers.Remove(modifier);
+                        target.modifiers.Remove(currentModifier);
 
                     }
+                    addModifier.SetExpiration();
+                    addModifier.character = target;
                     target.modifiers.Add(addModifier);
                 }
                 hits = true;
@@ -109,8 +116,7 @@ public class GeneralOffensiveAbility : AbilityRisk
         {
             showText =" "+ abilityName + " missed and gave "+ manaCost + " mana to " + targetName;
         }
-        Debug.Log("el nuevo texto es: " + showText);
-       
+        Debug.Log("el nuevo texto es: " + showText);       
     }
 
 

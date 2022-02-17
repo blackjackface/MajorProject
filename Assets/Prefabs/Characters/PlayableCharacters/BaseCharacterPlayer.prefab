@@ -259,6 +259,7 @@ GameObject:
   - component: {fileID: 446419791}
   - component: {fileID: 446419797}
   - component: {fileID: 446419798}
+  - component: {fileID: 7241443798673479248}
   m_Layer: 0
   m_Name: BaseCharacterPlayer
   m_TagString: Untagged
@@ -274,7 +275,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4486976659566791628}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.609}
+  m_LocalPosition: {x: 0, y: 0, z: -0.1}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children:
   - {fileID: 992533940}
@@ -285,8 +286,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 1.91}
-  m_SizeDelta: {x: 2.41, y: 2.3}
+  m_AnchoredPosition: {x: -713, y: 478.3}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &4486976659566791629
 SpriteRenderer:
@@ -394,30 +395,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 273c6bf5271fd1a4fbe42009ecd5c5f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  charactername: name
+  charactername: BasePlayableCharacter
   level: 1
-  maxHP: 10
+  maxHP: 70
   currentHP: 10
-  attack: 5
+  attack: 11
   currentAttack: 5
-  defense: 5
+  defense: 2
   currentDefense: 5
-  intelligence: 5
+  intelligence: 19
   currentIntelligence: 5
-  resistance: 5
+  resistance: 17
   currentResistance: 5
   agility: 5
   currentAgility: 5
   maxTurnsOpportunity: 3
   currentOpportunityTurn: -1
-  mana: 11
-  initiative: 1
+  mana: 72
+  initiative: 1.25
   isDead: 0
   turnGauge: 0
   isPlayer: 1
-  opportunityGauge: 0
+  opportunityGauge: 55
   maxOpportunityGaugeBar: 100
-  playerIndex: -1
+  playerIndex: 0
   behaviour: {fileID: 446419797}
   modifiers: []
   m_MyEvent:
@@ -441,8 +442,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthLink:
-    targetScript: {fileID: 0}
-    fieldName: 
+    targetScript: {fileID: 2956610887359739896}
+    fieldName: currentHp
   HealthbarPrefab: {fileID: 22400004, guid: e1937e1c6f9ba6c4ba4d36e07d553b6d, type: 3}
   yOffset: 0.5
   keepSize: 1
@@ -493,7 +494,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6d486b8db6a05bf4785d7f354e8dcf95, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -531,17 +532,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3005a5d0acb0f8e41a2deecacfd71dc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialAbilities: []
-  abilities: []
+  initialAbilities:
+  - {fileID: 2377710092501265445, guid: a50dd47524c96e64a9e414441a9a3f9a, type: 3}
+  - {fileID: 6109339557625145681, guid: 975a90435d59e9e4c9c9dc917bbd06ba, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  abilities:
+  - {fileID: 2377710092501265445, guid: a50dd47524c96e64a9e414441a9a3f9a, type: 3}
+  - {fileID: 6109339557625145681, guid: 975a90435d59e9e4c9c9dc917bbd06ba, type: 3}
+  - {fileID: 6842309106723653625, guid: 1e905d5dc66199b48bc2ba9022cc8d7b, type: 3}
+  - {fileID: 2736236539291392952, guid: 94344546c7ad0a3449622fd8587373ca, type: 3}
   textToShow: 
-  characterList: []
-  enemyList: []
-  allyList: []
-  buttons: []
-  target: {fileID: 0}
-  canvas: {fileID: 0}
-  buttonPrefab: {fileID: 0}
-  hasTurnCompleted: 0
 --- !u!114 &446419798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -586,15 +590,29 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4486976659566791628}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 2956610887359739896}
+        m_TargetAssemblyTypeName: Character, Assembly-CSharp
+        m_MethodName: onClickCharacter
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &7241443798673479248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4486976659566791628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01cdafd3f5e590d41b9efdad3b2b0934, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  descriptionString: 
+  combatText: {fileID: 0}

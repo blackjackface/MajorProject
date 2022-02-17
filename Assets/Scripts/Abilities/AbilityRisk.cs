@@ -16,7 +16,7 @@ public class AbilityRisk : Ability
         LIGHT, // daño de luz   
         DARKNESS, //daño de oscuridad
         ESSENCE, //daño de esencia, equivalente a da�o todopoderoso
-        SUPREME //daño supremo, es prácticamente el mejor tipo de daño además de que tiene DRIP 
+        SUPREME //daño supremo, es prácticamente el mejor tipo de daño
     }
     public Element element = Element.NONE;
     public int baseDamage = 1;
@@ -25,14 +25,19 @@ public class AbilityRisk : Ability
     public bool isAttackMove = true;
     public bool isMagic = false;
     public bool hits = false;
-    public Modifier modifier;
+    public Modifier initialModifier;
+    public Modifier currentModifier;
     public GameObject popUpText;
     [SerializeField]
     public Color elementColor;
 
-
+    private void Awake()
+    {
+        currentModifier = initialModifier;
+    }
     private void Start()
     {
+
        description = "An elemental Attack of " + element.ToString() + "/n" + "Damage: " + baseDamage.ToString();
     }
 
@@ -66,7 +71,7 @@ public class AbilityRisk : Ability
                 elementColor = Color.white;
                 break;
             case Element.SUPREME:
-                elementColor = Color.HSVToRGB(255, 255, 0);
+                elementColor = new Color32(255, 157, 6, 255);
                 break;
         }
     }
@@ -105,7 +110,11 @@ public class AbilityRisk : Ability
     override public string FillDescription()
     {
         string textColorPerElement ="#" + ColorUtility.ToHtmlStringRGBA(elementColor);
-        return "An elemental Attack of " + $" <color={textColorPerElement}>{element.ToString()}</color>" + "\n" + "Damage: " 
-            + baseDamage.ToString() + "\n" + "Mana cost: " + manaCost + "\n" + "Risk: "+ riskFactor + "%"; 
+        if (currentModifier == null)
+            return "An elemental Attack of " + $" <color={textColorPerElement}>{element.ToString()}</color>" + "\n" + "Damage: "
+            + baseDamage.ToString() + "\n" + "Mana cost: " + manaCost + "\n" + "Risk: " + riskFactor + "%";
+        else
+            return "An elemental Attack of " + $" <color={textColorPerElement}>{element.ToString()}</color>" + "\n" + "Damage: "
+            + baseDamage.ToString() + "\n" + "Mana cost: " + manaCost + "\n" + "Risk: " + riskFactor + "%" + "\n" + "and applies: " + currentModifier.modifierName + currentModifier.description;
     }
 }

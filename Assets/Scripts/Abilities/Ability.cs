@@ -18,6 +18,7 @@ public abstract class Ability : MonoBehaviour
     public Vector3 offsetdistance;
     public GameObject referenceText;
     public GameObject particleEffects;
+    public bool usable = true;
     public virtual void UseAbility(Character user ,Character target)
     {
         
@@ -44,6 +45,12 @@ public abstract class Ability : MonoBehaviour
             Instantiate(particles, targetPosition + offsetdistance,particleEffects.transform.localRotation);
         }
         
+    }
+
+    public virtual void CheckIfUsable(Character user) {
+
+
+
     }
 
 }

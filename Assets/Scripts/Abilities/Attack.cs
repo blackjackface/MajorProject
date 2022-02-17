@@ -33,11 +33,7 @@ public class Attack : Ability
     }
 
 
-    void PerformAnimation() {
-    
-    //pasan cosas y numeritos en pantalla
-    
-    }
+
     public override void ShowText() {
         showText = "";
         showText = " " + userName + " dealt " + damage.ToString() + " Damage to " + targetName;

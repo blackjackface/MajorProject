@@ -12,19 +12,20 @@ public class RoundController
         characters = gamecharacters; 
     
     }
-
-
    public void CalculateTurn(List<Character> characters) {     
         float cumulativeInitiative = 0.0f;
-        float AverageInitiative = 0.0f;
+        float averageInitiative = 0.0f;
         foreach (Character character in characters) {
             cumulativeInitiative += character.initiative;        
         }
-        AverageInitiative = cumulativeInitiative / characters.Count;
+        averageInitiative = cumulativeInitiative / characters.Count;
         for (int i = 0; i < 100; i++) {
 
             foreach (Character character in characters) {
-                character.turnGauge += 1 + character.initiative / AverageInitiative;
+                if (!character.isDead)
+                {
+                    character.turnGauge += 1 + character.initiative / averageInitiative;
+                }
                 if (character.turnGauge >= 100) {
                     character.turnGauge -= 100;
                     Turn turn = new Turn();
@@ -32,7 +33,6 @@ public class RoundController
 
                     Debug.Log(character.charactername + " Has obtained a turn");
                     turns.Add(turn);
-                //TODO AÑADIR TURNOS A LA LISTA DE TURNOS, OTORGÁNDOSELO AL JUGADOR O ENEMIGO
                 }   
             }
         }

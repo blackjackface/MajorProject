@@ -81,15 +81,19 @@ public class CombatController : MonoBehaviour
                 characterDebugTurn = actTurn.character;
 
                 roundList[0].RemoveAt(0);
+                if(actTurn.character.modifiers.Count != 0)
                 foreach (Modifier modifier in actTurn.character.modifiers)
                 {
+                    
+                    modifier.turnsExpiration -= 1;
                     modifier.OnTurnBegin();
-                    modifier.turnsExpiration--;
-                    if (modifier.turnsExpiration == 0) {
+                        if (modifier.turnsExpiration == 0) {
 
                         modifier.isExpired = true;                    
                     }                    
                 }
+                actTurn.character.ManaCharge();
+
                 actTurn.character.modifiers.RemoveAll(s => s.isExpired);
                 if (actTurn.character.opportunityGauge >= actTurn.character.maxOpportunityGaugeBar)
                 {
@@ -116,24 +120,6 @@ public class CombatController : MonoBehaviour
 
                     state = State.ENEMY_TURN; 
                 }
-/*                if (actTurn.character.opportunityGauge >= actTurn.character.maxOpportunityGaugeBar)
-                {
-                    actTurn.character.opportunityGauge -= actTurn.character.maxOpportunityGaugeBar;
-                    actTurn.character.opportunityMode = true;
-                    actTurn.character.currentOpportunityTurn = actTurn.character.maxTurnsOpportunity;
-                    text.text = actTurn.character.charactername + " has entered into opportunity Mode";
-                    state = State.SHOWING_TURBO_MODE;
-                    TimeEvent timeEvent = new TimeEvent(algo,algo, 1.7f);
-                    timeEvents.add(timeEvent);
-                    ShowMessage(string loquesea);
-                }
-                break;
-            case State.SHOWING_TURBO_MODE:
-            if(processEvent == algoalgo){
-                HideMessage();
-                state = nextState();
-                }
-*/
                 break;
 
             case State.ENEMY_TURN:                
@@ -311,8 +297,7 @@ public class CombatController : MonoBehaviour
         }
     
     
-    
-    
+        
     }
 
 
@@ -338,8 +323,6 @@ public class CombatController : MonoBehaviour
         yield return new WaitForSecondsRealtime(1.7f);
         text.text = "";
         GoToState(state);
-
-
     }
 
 

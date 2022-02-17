@@ -34,29 +34,32 @@ public class Modifier : MonoBehaviour
     [SerializeField]
     public float initiativeMultiplier = 1;
     // the current stats are constantly recalculated, meaning that after each state there should be a statuscheck
+    public Character character;
 
 
-    public void Start()
+    public void SetExpiration()
     {
         turnsExpiration = maxTurnsExpiration;
         attackExpiration = maxAttackExpiration;
+        isExpired = false;
     }
+
     
     public string modifierName = "";
     public string description = "";
 
     //triggers when character performs an action
-    public void OnAction() { }
+    virtual public void OnAction() { }
     //triggers when character get hit
-    public void OnGettingAttacked() { }
+    virtual public void OnGettingAttacked() { }
     //triggers at turn begin
-    public void OnTurnBegin() { }
+    virtual public void OnTurnBegin() { }
     //triggers at turn end
-    public void OnTurnEnd() { }
+    virtual public void OnTurnEnd() { }
     // triggers on round begins
-    public void OnRoundBegin() { }
+    virtual public void OnRoundBegin() { }
     // triggers on round ends
-    public void OnRoundEnds() { }
+    virtual public void OnRoundEnds() { }
     public void AddStatCalculation(Character character) {
          character.currentAttack += additionalAttack;
          character.currentDefense += additionalDefense;

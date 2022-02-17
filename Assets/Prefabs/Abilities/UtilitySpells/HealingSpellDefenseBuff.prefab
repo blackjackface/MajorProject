@@ -1,0 +1,102 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5529959845652934242
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7356416684942361817}
+  - component: {fileID: 276524344879048011}
+  - component: {fileID: 7774443281063610000}
+  m_Layer: 0
+  m_Name: HealingSpellDefenseBuff
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7356416684942361817
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5529959845652934242}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -523.2163, y: 665.0638, z: 90.386475}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &276524344879048011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5529959845652934242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 705d20fe5b46e9a4d99e9fb21c1bddab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityName: Lone prayer
+  showText: ' Prietess healed <color=Green>29</color> HP to Pirate'
+  description: 
+  userName: Prietess
+  targetName: Pirate
+  manaCost: 15
+  gaugeFillValue: 0
+  targetPosition: {x: 0, y: 0, z: 0}
+  offsetdistance: {x: 0, y: 0, z: 0}
+  referenceText: {fileID: 0}
+  particleEffects: {fileID: 0}
+  usable: 1
+  element: 7
+  baseDamage: 1
+  multiplier: 1
+  riskFactor: 0
+  isAttackMove: 1
+  isMagic: 0
+  hits: 0
+  initialModifier: {fileID: 7774443281063610000}
+  currentModifier: {fileID: 7774443281063610000}
+  popUpText: {fileID: 2673144227410131628, guid: 978233bfb8f3b8540ae602d0cdda313b, type: 3}
+  elementColor: {r: 0.99496865, g: 1, b: 0.29874206, a: 1}
+  healingAmount: 12
+--- !u!114 &7774443281063610000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5529959845652934242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4273fbe2c59104f439396cb119b57d1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxTurnsExpiration: 3
+  maxAttackExpiration: -1
+  turnsExpiration: 2
+  roundsExpiration: -1
+  attackExpiration: -1
+  isExpired: 0
+  additionalAttack: 0
+  additionalDefense: 4
+  additionalIntelligence: 0
+  additionalResistance: 8
+  additionalAgility: 0
+  attackMultiplier: 1
+  defenseMultiplier: 1.25
+  intelligenceMultiplier: 1
+  resistanceMultiplier: 1.25
+  agilityMultiplier: 1
+  initiativeMultiplier: 1
+  character: {fileID: 0}
+  modifierName: Bendition
+  description: (enhances your defenses for 3 turns)
