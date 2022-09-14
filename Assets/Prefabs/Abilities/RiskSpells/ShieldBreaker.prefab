@@ -94,7 +94,7 @@ MonoBehaviour:
   attackExpiration: -1
   isExpired: 0
   additionalAttack: 0
-  additionalDefense: 5
+  additionalDefense: -5
   additionalIntelligence: 0
   additionalResistance: 0
   additionalAgility: 0

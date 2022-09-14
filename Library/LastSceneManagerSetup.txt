@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Scenes/BaseScene.unity
+- path: Assets/Scenes/InGameScenes/BossBattle2/BossBattle2.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0

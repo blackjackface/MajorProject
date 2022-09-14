@@ -40,6 +40,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3216713714735750964}
     m_Modifications:
+    - target: {fileID: 5077846085102195827, guid: 80f50fcb0adfa9545a8202d8daddd060, type: 3}
+      propertyPath: maxTurnsExpiration
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7642881513996357012, guid: 80f50fcb0adfa9545a8202d8daddd060, type: 3}
       propertyPath: m_Name
       value: Blue Minion
@@ -88,6 +92,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9030830706019053984, guid: 80f50fcb0adfa9545a8202d8daddd060, type: 3}
+      propertyPath: ElementCompatibility.Array.data[5]
+      value: 65
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 80f50fcb0adfa9545a8202d8daddd060, type: 3}
 --- !u!1 &5585919025709893186 stripped
@@ -117,7 +125,7 @@ PrefabInstance:
       objectReference: {fileID: 6527586436403778279}
     - target: {fileID: 4867550453358234824, guid: c5058275e1153074286252a7cde55a58, type: 3}
       propertyPath: possibleMinions.Array.size
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4867550453358234824, guid: c5058275e1153074286252a7cde55a58, type: 3}
       propertyPath: possibleMinions.Array.data[0]
@@ -183,6 +191,50 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4959787991636226936, guid: c5058275e1153074286252a7cde55a58, type: 3}
+      propertyPath: baseDamage
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 4959787991636226936, guid: c5058275e1153074286252a7cde55a58, type: 3}
+      propertyPath: riskFactor
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 5956779767782499721, guid: c5058275e1153074286252a7cde55a58, type: 3}
+      propertyPath: additionalAttack
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5956779767782499721, guid: c5058275e1153074286252a7cde55a58, type: 3}
+      propertyPath: additionalAgility
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5956779767782499721, guid: c5058275e1153074286252a7cde55a58, type: 3}
+      propertyPath: additionalDefense
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5956779767782499721, guid: c5058275e1153074286252a7cde55a58, type: 3}
+      propertyPath: additionalResistance
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5956779767782499721, guid: c5058275e1153074286252a7cde55a58, type: 3}
+      propertyPath: additionalIntelligence
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6003281715434177075, guid: c5058275e1153074286252a7cde55a58, type: 3}
+      propertyPath: attack
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 6003281715434177075, guid: c5058275e1153074286252a7cde55a58, type: 3}
+      propertyPath: initiative
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6003281715434177075, guid: c5058275e1153074286252a7cde55a58, type: 3}
+      propertyPath: intelligence
+      value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: 6003281715434177075, guid: c5058275e1153074286252a7cde55a58, type: 3}
+      propertyPath: ElementCompatibility.Array.data[5]
+      value: 65
+      objectReference: {fileID: 0}
     - target: {fileID: 9063890277561077426, guid: c5058275e1153074286252a7cde55a58, type: 3}
       propertyPath: description
       value: Iblis observes paciently the situation
@@ -201,6 +253,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3216713714735750964}
     m_Modifications:
+    - target: {fileID: 5077846085102195827, guid: 206320d8b26efeb4dad2db5c3541a2a7, type: 3}
+      propertyPath: maxTurnsExpiration
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7642881513996357012, guid: 206320d8b26efeb4dad2db5c3541a2a7, type: 3}
       propertyPath: m_Name
       value: Red Minion
@@ -248,6 +304,10 @@ PrefabInstance:
     - target: {fileID: 7642881513996357034, guid: 206320d8b26efeb4dad2db5c3541a2a7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9030830706019053984, guid: 206320d8b26efeb4dad2db5c3541a2a7, type: 3}
+      propertyPath: ElementCompatibility.Array.data[5]
+      value: 65
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 206320d8b26efeb4dad2db5c3541a2a7, type: 3}

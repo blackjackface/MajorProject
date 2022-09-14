@@ -36,7 +36,7 @@ public class Attack : Ability
 
     public override void ShowText() {
         showText = "";
-        showText = " " + userName + " dealt " + damage.ToString() + " Damage to " + targetName;
+        showText = " " + userName + " attacked and dealt " + damage.ToString() + " Damage to " + targetName;
         Debug.Log("el nuevo texto es: "+ showText);
     }
 

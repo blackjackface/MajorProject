@@ -26,13 +26,13 @@ public class AttackEnhanced : Attack
         target.currentHP -= damage;
 
 
-        userName = user.charactername;
-        targetName = target.charactername;
         Debug.Log(" " + user.charactername + " dealt " + damage.ToString() + " Damage to " + target.charactername);
         if (target.currentHP <= 0)
         {
             target.isDead = true;
         }
+        userName = user.charactername;
+        targetName = target.charactername;
         ShowText();
 
         //here happens animation in battle.
@@ -42,7 +42,7 @@ public class AttackEnhanced : Attack
 
     public override void ShowText() {
         showText = "";
-        showText = " " + userName + " dealt " + damage.ToString() + " Damage to " + targetName;
+        showText = " " + userName + " attacked and dealt " + damage.ToString() + " Damage to " + targetName;
         Debug.Log("el nuevo texto es: "+ showText);
     }
 

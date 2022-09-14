@@ -23,7 +23,9 @@ public class GeneralOffensiveAbility : AbilityRisk
 
         CalculateMultiplier(target);
         int userDamage;
-        
+
+
+
         if (isMagic)
             userDamage = user.intelligence;
         else
@@ -91,8 +93,6 @@ public class GeneralOffensiveAbility : AbilityRisk
                 user.opportunityGauge += gaugeFillingValue * gaugeFillingFactorOnHit;
                 target.opportunityGauge += gaugeFillingValue * gaugeFillingFactorOnHitEnemy;
             }
-            userName = user.charactername;
-            targetName = target.charactername;
             Debug.Log(" " + user.charactername + " dealt " + damage.ToString() + " Damage to " + target.charactername);
         }
 
@@ -102,7 +102,9 @@ public class GeneralOffensiveAbility : AbilityRisk
         }
 
         PopUpNumber(damage, target);
-            ShowText();
+        userName = user.charactername;
+        targetName = target.charactername;
+        ShowText();
         
     }
     public override void ShowText()

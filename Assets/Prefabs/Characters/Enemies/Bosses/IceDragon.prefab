@@ -154,7 +154,7 @@ MonoBehaviour:
   currentHP: 10
   attack: 38
   currentAttack: 5
-  defense: 11
+  defense: 15
   currentDefense: 5
   intelligence: 6
   currentIntelligence: 5
@@ -165,6 +165,7 @@ MonoBehaviour:
   maxTurnsOpportunity: 3
   currentOpportunityTurn: -1
   mana: 122
+  manaRechargePerTurn: 0
   initiative: 0.64
   isDead: 0
   turnGauge: 0

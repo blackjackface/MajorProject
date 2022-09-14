@@ -16,6 +16,8 @@ public class AttackPirate : Ability
     public override  void UseAbility(Character user, Character target)
     {
 
+        userName = user.charactername;
+        targetName = target.charactername;
         damage = (user.currentAttack + extraDamage) - target.currentDefense;
         if (damage < 0) {
             damage = 0;
@@ -35,14 +37,13 @@ public class AttackPirate : Ability
         }
 
 
-        userName = user.charactername;
-        targetName = target.charactername;
-        Debug.Log(" " +  user.charactername + " dealt " + damage.ToString() + " Damage to " + target.charactername);
+        Debug.Log(" " +  user.charactername + " attacks, dealt " + damage.ToString() + " Damage to " + target.charactername);
         if (target.currentHP <= 0) {
             target.isDead = true;
         }
+        userName = user.charactername;
+        targetName = target.charactername;
         ShowText();
-    //here happens animation in battle.
     }
 
 

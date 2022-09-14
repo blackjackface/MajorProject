@@ -14,6 +14,8 @@ public class HealingSpell : AbilityRisk
         userName = user.charactername;
         targetName = target.charactername;
         maxhealingoverlifeValue = (target.currentHP + healingValue);
+        user.mana -= manaCost;
+
         if (maxhealingoverlifeValue > target.maxHP)
         {
             target.currentHP = target.maxHP;
